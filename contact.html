@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Archive Labs 찾아오는 길 및 연락하기" />
+  <title>Archive Labs | 찾아오는 길 · 연락</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="nav">
+        <a class="logo" href="./index.html" aria-label="홈으로">
+          <span class="logo-badge" aria-hidden="true"></span>
+          <span>Archive Labs</span>
+        </a>
+
+        <nav aria-label="주요 메뉴">
+          <ul>
+            <li><a href="./index.html">기업 소개</a></li>
+            <li><a href="./works.html">과업</a></li>
+            <li><a href="./contact.html">찾아오는 길 · 연락</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-actions">
+          <button class="btn hamburger" id="btnMenu" aria-label="메뉴 열기">☰</button>
+          <button class="btn" data-copy="010-1357-2468" type="button">전화 복사</button>
+        </div>
+      </div>
+
+      <div class="mobile-menu" id="mobileMenu" aria-label="모바일 메뉴">
+        <a href="./index.html">기업 소개</a>
+        <a href="./works.html">과업</a>
+        <a href="./contact.html">찾아오는 길 · 연락</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" style="padding-bottom:10px;">
+      <div class="container">
+        <h1 class="headline" style="margin-bottom:8px;">찾아오는 길 · 연락하기</h1>
+        <p class="subhead" style="margin-bottom:0;">
+          주소/지도는 샘플입니다. 실제 주소와 지도 링크로 교체해 주세요.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:10px;">
+      <div class="container">
+        <div class="contact-grid">
+          <div class="card map" aria-label="지도">
+            <img src="./assets/map-placeholder.png" alt="지도 이미지(샘플)" onerror="this.style.display='none'" />
+            <div style="padding:18px;">
+              <div class="stat">
+                <div>
+                  <span>주소</span><br/>
+                  <b>Seoul, KR (샘플)</b>
+                </div>
+                <a class="btn" href="https://maps.google.com" target="_blank" rel="noreferrer">지도 열기</a>
+              </div>
+              <div style="margin-top:12px; color:var(--muted); font-weight:900;">
+                - 대중교통/주차 안내 문구를 여기에 추가하세요.<br/>
+                - 구글맵 링크를 실제 위치로 바꾸면 됩니다.
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <form id="contactForm" aria-label="문의 폼">
+              <div>
+                <label for="name">이름</label>
+                <input id="name" name="name" placeholder="홍길동" required />
+              </div>
+              <div>
+                <label for="email">이메일</label>
+                <input id="email" name="email" type="email" placeholder="name@example.com" required />
+              </div>
+              <div>
+                <label for="msg">문의 내용</label>
+                <textarea id="msg" name="msg" placeholder="문의 내용을 입력해 주세요." required></textarea>
+              </div>
+
+              <div class="stat">
+                <div>
+                  <span>대표 연락처</span><br/>
+                  <b>010-1357-2468</b>
+                </div>
+                <button class="btn" data-copy="010-1357-2468" type="button">복사</button>
+              </div>
+
+              <button class="btn primary" type="submit">문의 제출</button>
+              <small style="color:var(--muted); font-weight:900;">
+                제출 시 화면에 알림만 뜹니다(데모). 실제 전송은 Formspree/Apps Script/API로 연결하세요.
+              </small>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="foot">
+          <div>© <span id="year"></span> Archive Labs. All rights reserved.</div>
+          <div style="display:flex; gap:12px;">
+            <a href="./index.html">소개</a>
+            <a href="./works.html">과업</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="./app.js"></script>
+</body>
+</html>
