@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>아카이브랩스</title>
+  <title>오시는 길 | 아카이브랩스</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -12,6 +12,9 @@
   <div class="header-inner">
     <div class="logo">아카이브랩스</div>
     <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+    <nav id="mainNav">
+      <a href="index.html">메인</a>
 
       <span class="nav-item">
         <a href="index.html#company" onclick="toggleSub(event)">기업소개</a>
@@ -45,34 +48,48 @@
   <h1>오시는 길</h1>
 
   <div class="card">
-    <h2>오시는 길</h2>
-
-    <p>
-      <span class="gold">주소</span><br>
+    <h2>주소</h2>
+    <p style="margin-top:10px;">
       강원 원주시 흥업면 한라대길 28<br>
       주식회사 아카이브랩스
     </p>
-
     <p style="margin-top:12px;">
       <span class="gold">안내</span><br>
       방문 시 사전 연락을 부탁드립니다.
     </p>
+  </div>
 
-    <p style="margin-top:16px;">
-      <a class="btn btn-primary"
-         href="https://naver.me/x8DxSRNQ"
-         target="_blank" rel="noopener">
-        네이버 지도에서 위치 보기
-      </a>
-    </p>
+  <div class="card">
+    <h2>카카오맵</h2>
+    <p style="margin-top:10px;">아래 지도에서 위치를 확인하실 수 있습니다.</p>
+
+    <div class="map-wrap" style="margin-top:14px;">
+      <!-- 카카오맵 - 지도퍼가기 -->
+      <div id="daumRoughmapContainer1767936802332"
+           class="root_daum_roughmap root_daum_roughmap_landing"></div>
+    </div>
 
     <p style="margin-top:10px; font-size:13px; color:var(--muted);">
-      ※ 버튼 클릭 시 네이버 지도(새 창)로 연결됩니다.
+      ※ 지도가 보이지 않으면 브라우저 새로고침(Ctrl+F5)을 해주세요.
     </p>
   </div>
 </div>
 
 <footer>© 2026 Archive Labs</footer>
+
+<!-- ✅ 지도 퍼가기 설치 스크립트: 페이지당 1번만 -->
+<script charset="UTF-8" class="daum_roughmap_loader_script"
+        src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
+
+<!-- ✅ 실행 스크립트 -->
+<script charset="UTF-8">
+  new daum.roughmap.Lander({
+    "timestamp": "1767936802332",
+    "key": "fpex2pfknrf",
+    "mapWidth": "100%",   // ✅ 반응형
+    "mapHeight": "360"    // ✅ 필요하면 420, 480으로 늘려도 됨
+  }).render();
+</script>
 
 <script>
 function toggleMenu(){ document.getElementById("mainNav").classList.toggle("active"); }
