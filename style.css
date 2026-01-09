@@ -330,3 +330,61 @@ footer{
   font-weight: 600;
   background: rgba(255,255,255,.7);
 }
+
+/* ====== Nav: dropdown arrow + active ====== */
+
+/* 상위 메뉴에 화살표 표시(서브메뉴가 있는 항목만) */
+.nav-item > a::after{
+  content: "▾";
+  font-size: 12px;
+  margin-left: 8px;
+  color: var(--muted);
+  transition: transform .15s ease, color .15s ease;
+}
+
+/* 데스크톱에서 hover 시 화살표 살짝 회전 */
+@media (min-width: 561px){
+  .nav-item:hover > a::after,
+  .nav-item:focus-within > a::after{
+    transform: rotate(180deg);
+    color: #163eaa;
+  }
+}
+
+/* 모바일에서 open 시 화살표 회전 */
+@media (max-width: 560px){
+  .nav-item.open > a::after{
+    transform: rotate(180deg);
+    color: #163eaa;
+  }
+}
+
+/* active 스타일 */
+.nav-item > a.active,
+.submenu a.active{
+  background: var(--brand-weak);
+  color: #163eaa;
+  border: 1px solid rgba(29, 78, 216, .18);
+}
+
+/* ====== Header compact on scroll ====== */
+header.compact .header-inner{
+  padding: 10px 0;
+}
+
+header.compact .logo{
+  font-size: 17px;
+}
+
+header.compact .menu-toggle{
+  width: 40px;
+  height: 40px;
+  border-radius: 11px;
+}
+
+/* 모바일 메뉴 위치도 헤더 높이에 맞춰 살짝 조정 */
+@media (max-width: 560px){
+  header.compact .nav{
+    top: 62px;
+  }
+}
