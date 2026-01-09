@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>수행과업 | 아카이브랩스</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
@@ -13,30 +13,33 @@
     <div class="logo">아카이브랩스</div>
     <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 
-      <div class="nav-item">
+    <nav id="mainNav">
+      <a href="index.html">메인</a>
+
+      <span class="nav-item">
         <a href="index.html#company" onclick="toggleSub(event)">기업소개</a>
         <div class="submenu">
           <a href="index-history.html">연혁 및 주요 사업실적</a>
           <a href="index-partners.html">주요 파트너사</a>
         </div>
-      </div>
+      </span>
 
-      <div class="nav-item">
+      <span class="nav-item">
         <a href="tasks.html" onclick="toggleSub(event)">수행과업</a>
         <div class="submenu">
           <a href="tasks-government.html">정부용역 보고서</a>
           <a href="tasks-consulting.html">논문 컨설팅</a>
         </div>
-      </div>
+      </span>
 
-      <div class="nav-item">
+      <span class="nav-item">
         <a href="contact.html" onclick="toggleSub(event)">Contact</a>
         <div class="submenu">
           <a href="contact-info.html">연락처</a>
           <a href="contact-qna.html">1:1 질문</a>
           <a href="contact-map.html">오시는 길</a>
         </div>
-      </div>
+      </span>
     </nav>
   </div>
 </header>
@@ -55,7 +58,7 @@
 
   <div class="card">
     <h2>예시 수행 내역</h2>
-    <p>
+    <p style="margin-top:10px;">
       • (예시) ○○정책 만족도 조사<br>
       • (예시) ○○사업 실태조사<br>
       • (예시) ○○사업 성과평가 및 환류전략 수립
@@ -66,15 +69,11 @@
 <footer>© 2026 Archive Labs</footer>
 
 <script>
-function toggleMenu() {
-  const nav = document.getElementById("mainNav");
-  nav.classList.toggle("active");
-}
-function toggleSub(e) {
+function toggleMenu(){ document.getElementById("mainNav").classList.toggle("active"); }
+function toggleSub(e){
   if (window.innerWidth > 560) return;
   e.preventDefault();
-  const item = e.target.closest(".nav-item");
-  item.classList.toggle("open");
+  e.target.closest(".nav-item").classList.toggle("open");
 }
 </script>
 
