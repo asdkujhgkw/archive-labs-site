@@ -514,98 +514,112 @@ iframe, table{ max-width: 100%; }
   .submenu{ transition: none !important; transform: none !important; }
 }
 
-/* ====== Map (Kakao) ====== */
-.map-wrap{
+
+
+
+/* ========== Contact page layout ========== */
+.contact-grid{
   margin-top: 18px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.contact-panel{
+  background: rgba(255,255,255,.94);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: clamp(16px, 3.2vw, 22px);
+  box-shadow: var(--shadow-soft);
+  min-width: 0;
+}
+
+.contact-panel h3{
+  margin: 0 0 12px;
+  letter-spacing: -0.02em;
+}
+
+.contact-lines{
+  display: grid;
+  gap: 10px;
+}
+
+.contact-lines .line{
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 12px;
+  align-items: start;
+  padding: 10px 0;
+}
+
+.contact-lines .line + .line{
+  border-top: 1px dashed var(--line);
+}
+
+.contact-lines .k{
+  color: var(--muted);
+  font-weight: 850;
+  font-size: 13px;
+}
+
+.contact-lines .v{
+  font-weight: 750;
+  word-break: keep-all;
+}
+
+.contact-lines .v a{
+  color: var(--brand);
+  font-weight: 900;
+}
+
+.hint{
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  font-weight: 650;
+  font-size: 12px;
+}
+
+.contact-actions{
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.muted{ color: var(--muted); }
+.small{ font-size: 13px; }
+
+/* map wrap (kakao roughmap) */
+.map-wrap{
+  margin-top: 6px;
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid var(--line);
   box-shadow: var(--shadow-soft);
+  background: rgba(255,255,255,.9);
+}
+.root_daum_roughmap{ width: 100% !important; }
+
+/* Responsive: stack panels */
+@media (max-width: 860px){
+  .contact-grid{ grid-template-columns: 1fr; }
 }
 
-.root_daum_roughmap{
-  width: 100% !important;
-}
 
-@media (max-width: 480px){
-  .root_daum_roughmap{
-    height: 280px !important;
-  }
-}
 
-/* ====== Desktop dropdown: 너무 빨리 꺼지는 현상 해결 ====== */
+/* ========== Desktop dropdown stability (prevents quick close) ========== */
 @media (min-width: 981px){
-  /* 상위 메뉴와 드롭다운 사이 갭을 줄이거나 없애기 */
-  .submenu{
-    top: calc(100% + 6px); /* 기존 10px이면 6px로 줄이기 */
-  }
+  .submenu{ top: calc(100% + 6px); }
 
-  /* ✅ hover 끊김 방지: 브릿지(투명 영역) 생성 */
+  /* hover bridge */
   .nav-item::after{
     content: "";
     position: absolute;
     left: 0;
     top: 100%;
     width: 100%;
-    height: 14px;          /* 상위 메뉴와 드롭다운 사이 연결 */
+    height: 14px;
     background: transparent;
-  }
-
-  /* ✅ 닫힐 때 너무 급하게 사라지지 않게 약간의 딜레이 */
-  .submenu{
-    transition: opacity .16s ease .06s, transform .16s ease .06s;
-  }
-  .nav-item:hover .submenu,
-  .nav-item:focus-within .submenu{
-    transition-delay: 0s; /* 열릴 땐 바로 */
-  }
-}
-
-/* ====== Contact info (오시는 길) ====== */
-.contact-info-box{
-  margin-top: 22px;
-  padding: clamp(18px, 3.8vw, 26px);
-  border-radius: 16px;
-  background: rgba(255,255,255,.96);
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow-soft);
-}
-
-.contact-row{
-  display: grid;
-  grid-template-columns: 90px 1fr;
-  gap: 12px;
-  padding: 10px 0;
-}
-
-.contact-row + .contact-row{
-  border-top: 1px dashed var(--line);
-}
-
-.contact-row .label{
-  font-weight: 800;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.contact-row .value{
-  font-weight: 700;
-  color: var(--text);
-  line-height: 1.6;
-}
-
-.contact-row a{
-  color: var(--brand);
-  font-weight: 800;
-}
-
-/* 모바일 */
-@media (max-width: 480px){
-  .contact-row{
-    grid-template-columns: 1fr;
-    gap: 4px;
-  }
-  .contact-row .label{
-    font-size: 13px;
   }
 }
