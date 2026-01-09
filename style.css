@@ -514,3 +514,21 @@ iframe, table{ max-width: 100%; }
   .submenu{ transition: none !important; transform: none !important; }
 }
 
+/* ====== Map (Kakao) ====== */
+.map-wrap{
+  margin-top: 18px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-soft);
+}
+
+.root_daum_roughmap{
+  width: 100% !important;
+}
+
+@media (max-width: 480px){
+  .root_daum_roughmap{
+    height: 280px !important;
+  }
+}
