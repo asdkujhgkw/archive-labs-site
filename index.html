@@ -1,165 +1,81 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Archive Labs 기업 소개" />
-  <title>Archive Labs | 기업 소개</title>
-  <link rel="stylesheet" href="./styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>아카이브랩스</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <div class="container">
-      <div class="nav">
-        <a class="logo" href="./index.html" aria-label="홈으로">
-          <span class="logo-badge" aria-hidden="true"></span>
-          <span>Archive Labs</span>
-        </a>
 
-        <nav aria-label="주요 메뉴">
-          <ul>
-            <li><a href="./index.html">기업 소개</a></li>
-            <li><a href="./works.html">과업</a></li>
-            <li><a href="./contact.html">찾아오는 길 · 연락</a></li>
-          </ul>
-        </nav>
+<header>
+  <div class="logo">아카이브랩스</div>
+  <nav>
+    <a href="index.html">메인</a>
+    <a href="company.html">기업소개</a>
+    <a href="tasks.html">수행과업</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
 
-        <div class="nav-actions">
-          <button class="btn hamburger" id="btnMenu" aria-label="메뉴 열기">☰</button>
-          <!-- '지금 시작' 삭제됨 -->
-          <a class="btn" href="./contact.html">연락하기</a>
-        </div>
-      </div>
+<!-- 메인 이미지 영역 -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>
+      공공의 질문에<br>
+      <span class="gold">정밀한 답</span>을 제공합니다
+    </h1>
+    <p>
+      공공분야 조사용역 전문 기관, 아카이브랩스
+    </p>
+  </div>
+</section>
 
-      <div class="mobile-menu" id="mobileMenu" aria-label="모바일 메뉴">
-        <a href="./index.html">기업 소개</a>
-        <a href="./works.html">과업</a>
-        <a href="./contact.html">찾아오는 길 · 연락</a>
+<div class="container">
+
+  <!-- 소개 카드 -->
+  <div class="card">
+    <h2>아카이브랩스는</h2>
+    <p>
+      공공정책, 행정사업, 지역사회 연구를 위한
+      체계적인 조사와 데이터 분석을 수행합니다.
+    </p>
+  </div>
+
+  <!-- 이미지 카드 섹션 -->
+  <div class="image-grid">
+
+    <div class="image-card">
+      <img src="images/research.jpg" alt="조사">
+      <div>
+        <h3>조사 설계</h3>
+        <p>정책 목적에 맞는 조사·설문·FGI 설계</p>
       </div>
     </div>
-  </header>
 
-  <main>
-    <section class="hero">
-      <div class="container">
-        <div class="hero-grid">
-          <div>
-            <div class="pill-row">
-              <span class="pill">R&D</span>
-              <span class="pill">Product</span>
-              <span class="pill">Automation</span>
-              <span class="pill">Data</span>
-            </div>
-
-            <h1 class="headline">기록을 자산으로<br/>만드는 기술, Archive Labs</h1>
-            <p class="subhead">
-              Archive Labs는 조직의 지식과 산출물을 체계적으로 정리·검색·활용할 수 있도록
-              워크플로우와 도구를 설계합니다. 빠르게 만들고, 쉽게 유지하며, 확장 가능한 구조를 지향합니다.
-            </p>
-
-            <div style="display:flex; gap:10px; flex-wrap:wrap;">
-              <a class="btn primary" href="./works.html">과업 보기</a>
-              <button class="btn" data-copy="010-1357-2468" type="button">전화번호 복사</button>
-            </div>
-          </div>
-
-          <div class="card" style="padding:18px; display:flex; flex-direction:column; gap:12px;">
-            <div class="stat">
-              <div>
-                <span>대표 연락처</span><br/>
-                <b>010-1357-2468</b>
-              </div>
-              <a class="btn" href="./contact.html">문의</a>
-            </div>
-
-            <div class="stat">
-              <div>
-                <span>핵심 역량</span><br/>
-                <b>설계 · 구현 · 운영</b>
-              </div>
-              <span style="color:var(--muted); font-weight:900;">End-to-End</span>
-            </div>
-
-            <div class="stat">
-              <div>
-                <span>협업 방식</span><br/>
-                <b>문서화 & 이터레이션</b>
-              </div>
-              <span style="color:var(--muted); font-weight:900;">Lean</span>
-            </div>
-
-            <small style="color:var(--muted); font-weight:900;">
-              * 문구/지표는 샘플입니다. 실제 소개 문장으로 바꿔서 사용하세요.
-            </small>
-          </div>
-        </div>
+    <div class="image-card">
+      <img src="images/data.jpg" alt="분석">
+      <div>
+        <h3>데이터 분석</h3>
+        <p>정량·정성 데이터를 기반으로 한 분석</p>
       </div>
-    </section>
+    </div>
 
-    <section class="section" id="about">
-      <div class="container">
-        <h2 class="section-title">우리가 하는 일</h2>
-        <p class="section-desc">업무 히스토리와 산출물을 “찾을 수 있게” 만드는 것이 목표입니다.</p>
-
-        <div class="grid3">
-          <div class="feature">
-            <div class="icon">🧠</div>
-            <h3>지식 구조화</h3>
-            <p>문서/위키/리포트를 체계화하여 검색과 재사용을 쉽게 합니다.</p>
-          </div>
-          <div class="feature">
-            <div class="icon">⚙️</div>
-            <h3>자동화</h3>
-            <p>반복 작업을 줄이고, 프로세스를 안정적으로 운영할 수 있게 돕습니다.</p>
-          </div>
-          <div class="feature">
-            <div class="icon">📈</div>
-            <h3>성과 추적</h3>
-            <p>진행 과업과 결과를 한눈에 볼 수 있도록 대시보드/리포트를 설계합니다.</p>
-          </div>
-        </div>
+    <div class="image-card">
+      <img src="images/report.jpg" alt="보고서">
+      <div>
+        <h3>성과 평가</h3>
+        <p>정책 및 사업 성과 평가와 보고서 작성</p>
       </div>
-    </section>
+    </div>
 
-    <section class="section">
-      <div class="container">
-        <h2 class="section-title">진행 방식</h2>
-        <p class="section-desc">요구사항 → 설계 → 구현 → 운영까지 한 흐름으로 진행합니다.</p>
+  </div>
 
-        <div class="grid3">
-          <div class="feature">
-            <div class="icon">1</div>
-            <h3>목표 정의</h3>
-            <p>문제/목표/우선순위를 정리하고 범위를 합의합니다.</p>
-          </div>
-          <div class="feature">
-            <div class="icon">2</div>
-            <h3>프로토타입</h3>
-            <p>빠른 시안을 만들어 피드백을 반영합니다.</p>
-          </div>
-          <div class="feature">
-            <div class="icon">3</div>
-            <h3>납품 & 운영</h3>
-            <p>문서화, 배포, 유지보수 가이드를 포함해 안정적으로 인계합니다.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+</div>
 
-    <footer class="footer">
-      <div class="container">
-        <div class="foot">
-          <div>© <span id="year"></span> Archive Labs. All rights reserved.</div>
-          <div style="display:flex; gap:12px;">
-            <a href="./works.html">과업</a>
-            <a href="./contact.html">연락</a>
-          </div>
-        </div>
-      </div>
-    </footer>
-  </main>
+<footer>
+  © 2026 Archive Labs. All rights reserved.
+</footer>
 
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="./app.js"></script>
 </body>
 </html>
