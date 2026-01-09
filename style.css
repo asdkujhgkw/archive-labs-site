@@ -1,0 +1,351 @@
+:root{
+  --bg:#0b0f14;
+  --panel:#0f1622;
+  --text:#e9eef6;
+  --muted:#a9b4c4;
+  --gold:#c9a86a;
+  --line: rgba(201,168,106,0.22);
+}
+
+*{ box-sizing:border-box; }
+
+body{
+  margin:0;
+  font-family:"Segoe UI", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+a{ color:inherit; }
+
+/* ===== 헤더 / 네비 ===== */
+header{
+  position: sticky;
+  top:0;
+  z-index:50;
+  backdrop-filter: blur(10px);
+  background: rgba(0,0,0,0.25);
+  border-bottom:1px solid var(--line);
+}
+
+.header-inner{
+  max-width:1100px;
+  margin:0 auto;
+  padding:16px 20px;
+  display:flex;
+  gap:14px;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+}
+
+.logo{
+  font-size:20px;
+  font-weight:600;
+  color:#fff;
+  letter-spacing:0.2px;
+}
+
+/* 기본 nav(PC) */
+nav{
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+  position: relative; /* 드롭다운 기준 */
+}
+
+nav a{
+  text-decoration:none;
+  font-size:14px;
+  color: var(--muted);
+  padding:8px 10px;
+  border-radius:10px;
+}
+
+nav a:hover{
+  color: var(--text);
+  background: rgba(255,255,255,0.06);
+}
+
+/* ===== 공통 레이아웃 ===== */
+.container{
+  max-width:1100px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.card{
+  background: rgba(15,22,34,0.75);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:24px;
+  margin-bottom:18px;
+  box-shadow: 0 25px 70px rgba(0,0,0,0.25);
+}
+
+h1,h2,h3{ margin:0; font-weight:600; }
+p{ color: var(--muted); line-height:1.7; }
+.gold{ color: var(--gold); }
+
+/* ===== 히어로 ===== */
+.hero{
+  position:relative;
+  min-height: 420px;
+  display:flex;
+  align-items:center;
+  border-bottom:1px solid var(--line);
+  background: url("images/hero.jpg") center/cover no-repeat;
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: rgba(11,15,20,0.65);
+}
+
+.hero-content{
+  position:relative;
+  z-index:1;
+  max-width:1100px;
+  margin:0 auto;
+  padding: 90px 20px;
+}
+
+.hero h1{
+  font-size: clamp(28px, 4vw, 46px);
+  line-height:1.25;
+}
+
+.hero p{
+  margin-top: 14px;
+  max-width: 680px;
+  font-size: 15px;
+}
+
+.hero-actions{
+  margin-top:22px;
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  display:inline-block;
+  padding: 11px 16px;
+  border-radius: 14px;
+  font-size: 14px;
+  text-decoration:none;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,0.05);
+  color: var(--text);
+}
+
+.btn:hover{ background: rgba(255,255,255,0.10); }
+
+.btn-primary{
+  background: var(--gold);
+  color:#000;
+  border-color: transparent;
+}
+.btn-primary:hover{ opacity:0.9; }
+
+/* ===== 이미지 카드 섹션(반응형 grid) ===== */
+.image-grid{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:18px;
+  margin-top: 24px;
+}
+
+.image-card{
+  border-radius:18px;
+  overflow:hidden;
+  background: rgba(15,22,34,0.75);
+  border:1px solid var(--line);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.image-card:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+}
+
+.image-card img{
+  width:100%;
+  height: 160px;
+  object-fit: cover;
+  display:block;
+}
+
+.image-card .pad{
+  padding:18px;
+}
+
+.image-card h3{
+  font-size:16px;
+  margin-bottom:8px;
+}
+
+.image-card p{
+  font-size:14px;
+  margin:0;
+}
+
+/* ===== 푸터 ===== */
+footer{
+  border-top:1px solid var(--line);
+  padding:18px;
+  text-align:center;
+  font-size:13px;
+  color: var(--muted);
+}
+
+/* ===== 드롭다운 + 햄버거(최종 통합) ===== */
+
+/* PC 드롭다운 */
+.nav-item{
+  position: relative;
+  display: inline-block;
+}
+
+.submenu{
+  display:none;
+  position:absolute;
+  top:100%;              /* ✅ 틈 없이 바로 아래 */
+  left:0;
+  min-width:220px;
+  padding:8px;
+  margin-top:0;
+
+  border-radius:14px;
+  background: rgba(15,22,34,0.95);
+  border:1px solid var(--line);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+  backdrop-filter: blur(10px);
+  z-index:999;
+}
+
+/* ✅ hover bridge */
+.submenu::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:-12px;
+  width:100%;
+  height:12px;
+  background: transparent;
+}
+
+.submenu a{
+  display:block;
+  padding:10px 10px;
+  border-radius:10px;
+  color: var(--muted);
+  text-decoration:none;
+  font-size:13px;
+}
+
+.submenu a:hover{
+  background: rgba(255,255,255,0.06);
+  color: var(--text);
+}
+
+.nav-item:hover .submenu,
+.nav-item:focus-within .submenu{
+  display:block;
+}
+
+/* 햄버거 버튼 */
+.menu-toggle{
+  display:none;
+  font-size:24px;
+  cursor:pointer;
+  color: var(--text);
+  user-select:none;
+}
+
+/* ====== 반응형 (모바일/태블릿) ====== */
+
+/* 태블릿: 2열 */
+@media (max-width: 900px){
+  .image-grid{ grid-template-columns: repeat(2, 1fr); }
+  .hero{ min-height: 380px; }
+  .hero-content{ padding: 70px 20px; }
+}
+
+/* 모바일: 1열 + 헤더 정렬 + 햄버거/아코디언 */
+@media (max-width: 560px){
+  .header-inner{ align-items:flex-start; }
+  .container{ margin: 28px auto; }
+  .card{ padding:18px; }
+  .hero{ min-height: 340px; }
+  .hero-content{ padding: 60px 20px; }
+  .image-grid{ grid-template-columns: 1fr; }
+
+  nav a{ font-size: 13px; padding:7px 9px; }
+
+  /* 햄버거 표시 */
+  .menu-toggle{ display:block; }
+
+  /* 모바일 nav: 기본 숨김, 열면 세로 */
+  nav{
+    width:100%;
+    display:none;
+    flex-direction:column;
+    gap:6px;
+    margin-top:10px;
+  }
+  nav.active{ display:flex; }
+
+  nav > a,
+  .nav-item > a{
+    width:100%;
+    padding:10px 12px;
+    border-radius:10px;
+    background: rgba(255,255,255,0.05);
+  }
+
+  /* 모바일: 서브메뉴는 아코디언 */
+  .submenu{
+    display:none;
+    position: static;
+    min-width:auto;
+    padding: 6px 0 6px 10px;
+    margin-top: 6px;
+    border-left: 2px solid var(--line);
+
+    background: transparent;
+    box-shadow:none;
+    backdrop-filter:none;
+  }
+
+  .submenu::before{ display:none; }
+
+  .nav-item.open .submenu{ display:block; }
+
+  .submenu a{
+    background: rgba(255,255,255,0.04);
+    margin: 4px 0;
+  }
+}
+/* ===== 지도(반응형 iframe) ===== */
+.map-wrap{
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* 16:9 */
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: rgba(15,22,34,0.75);
+  box-shadow: 0 25px 70px rgba(0,0,0,0.25);
+}
+
+.map-wrap iframe{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
