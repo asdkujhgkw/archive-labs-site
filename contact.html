@@ -32,41 +32,70 @@
       </span>
 
       <span class="nav-item">
-        <a href="contact.html" onclick="toggleSub(event)">Contact</a>
+        <a href="contact.html" onclick="toggleSub(event)" class="active">Contact</a>
         <div class="submenu">
-          <a href="contact-info.html">연락처</a>
           <a href="contact-qna.html">1:1 질문</a>
-          <a href="contact-map.html">오시는 길</a>
         </div>
       </span>
     </nav>
   </div>
 </header>
 
-<div class="container">
-  <h1>Contact</h1>
-  <p>문의 및 제안요청(RFP) 관련 연락을 환영합니다.</p>
-
+<section class="container">
   <div class="card">
-    <h2>바로가기</h2>
-    <p style="margin-top:10px;">
-      <a class="btn" href="contact-map.html">오시는 길</a>
-      <a class="btn" href="contact-info.html">연락처</a>
+    <h2>Contact</h2>
+    <p>아카이브랩스는 공공분야 조사·분석 용역 및 연구 지원을 제공합니다. 아래 연락처로 편하게 문의해 주세요.</p>
 
-    </p>
-  </div>
+    <div class="contact-grid">
+      <!-- 연락처 / 주소 -->
+      <div class="contact-panel">
+        <h3>연락처</h3>
 
-  <div class="card">
-    <h2>문의 템플릿</h2>
-    <p style="margin-top:10px;">
-      1) 기관/부서명<br>
-      2) 과업명/범위<br>
-      3) 일정(제안/착수/완료)<br>
-      4) 예산 범위(가능 시)<br>
-      5) 담당자 연락처
-    </p>
+        <div class="contact-lines">
+          <div class="line">
+            <span class="k">주소</span>
+            <span class="v">
+              <span id="mapAddress">서울특별시 ○○구 ○○로 00, ○층</span>
+              <span class="hint">※ 실제 주소로 수정해 주세요.</span>
+            </span>
+          </div>
+
+          <div class="line">
+            <span class="k">전화</span>
+            <span class="v"><a href="tel:02-0000-0000">02-0000-0000</a></span>
+          </div>
+
+          <div class="line">
+            <span class="k">이메일</span>
+            <span class="v"><a href="mailto:contact@archivelabs.co.kr">contact@archivelabs.co.kr</a></span>
+          </div>
+
+          <div class="line">
+            <span class="k">운영시간</span>
+            <span class="v">평일 09:00–18:00 (주말·공휴일 휴무)</span>
+          </div>
+        </div>
+
+        <div class="contact-actions">
+          <a class="btn btn-primary" href="contact-qna.html">1:1 문의</a>
+          <a class="btn" href="mailto:contact@archivelabs.co.kr">이메일 보내기</a>
+          <a class="btn" href="tel:02-0000-0000">전화하기</a>
+        </div>
+      </div>
+
+      <!-- 지도 -->
+      <div class="contact-panel">
+        <h3>오시는 길</h3>
+        <div class="map-wrap">
+          <div id="daumRoughmapContainer1767952457950" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+        </div>
+        <p class="muted small" style="margin-top:10px;">
+          지도를 확대/축소하여 주변 위치를 확인할 수 있습니다.
+        </p>
+      </div>
+    </div>
   </div>
-</div>
+</section>
 
 <footer>© 2026 Archive Labs</footer>
 
@@ -169,5 +198,16 @@ function toggleSub(e) {
   });
 })();
 </script>
+<!-- ================= 카카오맵(퍼가기) 스크립트 ================= -->
+<script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
+<script charset="UTF-8">
+  new daum.roughmap.Lander({
+    "timestamp": "1767952457950",
+    "key": "fpwf53wib2p",
+    "mapWidth": "100%",
+    "mapHeight": "360"
+  }).render();
+</script>
+
 </body>
 </html>
