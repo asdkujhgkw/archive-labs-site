@@ -8,16 +8,14 @@
   --muted: #64748b;
   --line: #e6edf5;
 
-  --brand: #1d4ed8;      /* 포인트(블루) */
+  --brand: #1d4ed8;
   --brand-weak: #e8f0ff;
-  --gold: #b68c2f;       /* 기존 .gold 유지 */
+  --gold: #b68c2f;
 
   --shadow: 0 10px 30px rgba(15, 23, 42, .08);
   --shadow-soft: 0 6px 18px rgba(15, 23, 42, .06);
 
   --radius: 16px;
-  --radius-sm: 12px;
-
   --max: 1100px;
 }
 
@@ -35,11 +33,8 @@ body{
 
 a{ color: inherit; text-decoration: none; }
 img{ display: block; max-width: 100%; }
-
-/* gold 강조 */
 .gold{ color: var(--gold); font-weight: 700; }
 
-/* ========== Layout helpers ========== */
 .container{
   width: min(var(--max), calc(100% - 40px));
   margin: 0 auto;
@@ -92,7 +87,6 @@ header{
   gap: 10px;
 }
 
-/* nav-item (상위 메뉴) */
 .nav-item{
   position: relative;
   display: inline-flex;
@@ -104,16 +98,25 @@ header{
   align-items: center;
   padding: 10px 12px;
   border-radius: 12px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--text);
-  transition: background .15s ease, color .15s ease, transform .15s ease;
+  transition: background .15s ease, color .15s ease;
 }
+
+/* dropdown arrow */
+.nav-item > a::after{
+  content: "▾";
+  font-size: 12px;
+  margin-left: 8px;
+  color: var(--muted);
+  transition: transform .15s ease, color .15s ease;
+}
+
 .nav-item > a:hover{
   background: var(--brand-weak);
   color: #163eaa;
 }
 
-/* submenu (드롭다운) */
 .submenu{
   position: absolute;
   top: calc(100% + 10px);
@@ -132,25 +135,36 @@ header{
   padding: 10px 10px;
   border-radius: 10px;
   color: var(--text);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 14px;
   transition: background .15s ease, color .15s ease;
 }
+
 .submenu a:hover{
   background: #f1f6ff;
   color: #163eaa;
 }
 
-/* 데스크톱: hover/focus로 드롭다운 */
+/* active */
+.nav-item > a.active,
+.submenu a.active{
+  background: var(--brand-weak);
+  color: #163eaa;
+  border: 1px solid rgba(29, 78, 216, .18);
+}
+
 @media (min-width: 561px){
   .menu-toggle{ display: none; }
   .nav-item:hover .submenu,
-  .nav-item:focus-within .submenu{
-    display: block;
+  .nav-item:focus-within .submenu{ display: block; }
+
+  .nav-item:hover > a::after,
+  .nav-item:focus-within > a::after{
+    transform: rotate(180deg);
+    color: #163eaa;
   }
 }
 
-/* 모바일: 햄버거로 전체 메뉴 토글, 각 항목은 클릭 시 open */
 @media (max-width: 560px){
   .menu-toggle{ display: grid; }
   .nav{
@@ -160,7 +174,7 @@ header{
     top: 70px;
     width: min(var(--max), calc(100% - 20px));
     margin: 0 auto;
-    display: none; /* 기본 숨김 */
+    display: none;
     flex-direction: column;
     align-items: stretch;
     gap: 8px;
@@ -187,7 +201,21 @@ header{
     border-radius: 14px;
     margin-top: 8px;
   }
+
   .nav-item.open .submenu{ display: block; }
+
+  .nav-item.open > a::after{
+    transform: rotate(180deg);
+    color: #163eaa;
+  }
+}
+
+/* Header compact */
+header.compact .header-inner{ padding: 10px 0; }
+header.compact .logo{ font-size: 17px; }
+header.compact .menu-toggle{ width: 40px; height: 40px; border-radius: 11px; }
+@media (max-width: 560px){
+  header.compact .nav{ top: 62px; }
 }
 
 /* ========== Hero ========== */
@@ -216,7 +244,7 @@ header{
 .hero p{
   margin: 0 0 18px;
   color: var(--muted);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .hero-actions{
@@ -238,7 +266,7 @@ header{
   font-weight: 800;
   font-size: 14px;
   box-shadow: var(--shadow-soft);
-  transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+  transition: transform .15s ease, box-shadow .15s ease;
 }
 
 .btn:hover{
@@ -259,6 +287,7 @@ header{
   border-radius: var(--radius);
   box-shadow: var(--shadow-soft);
   padding: 22px;
+  margin-top: 16px;
 }
 
 .card h2{
@@ -300,9 +329,7 @@ header{
   background: #eef2ff;
 }
 
-.pad{
-  padding: 16px;
-}
+.pad{ padding: 16px; }
 
 .pad h3{
   margin: 0 0 6px;
@@ -312,7 +339,7 @@ header{
 .pad p{
   margin: 0;
   color: var(--muted);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 14px;
 }
 
@@ -327,64 +354,6 @@ footer{
   padding: 18px 0;
   text-align: center;
   color: var(--muted);
-  font-weight: 600;
+  font-weight: 700;
   background: rgba(255,255,255,.7);
-}
-
-/* ====== Nav: dropdown arrow + active ====== */
-
-/* 상위 메뉴에 화살표 표시(서브메뉴가 있는 항목만) */
-.nav-item > a::after{
-  content: "▾";
-  font-size: 12px;
-  margin-left: 8px;
-  color: var(--muted);
-  transition: transform .15s ease, color .15s ease;
-}
-
-/* 데스크톱에서 hover 시 화살표 살짝 회전 */
-@media (min-width: 561px){
-  .nav-item:hover > a::after,
-  .nav-item:focus-within > a::after{
-    transform: rotate(180deg);
-    color: #163eaa;
-  }
-}
-
-/* 모바일에서 open 시 화살표 회전 */
-@media (max-width: 560px){
-  .nav-item.open > a::after{
-    transform: rotate(180deg);
-    color: #163eaa;
-  }
-}
-
-/* active 스타일 */
-.nav-item > a.active,
-.submenu a.active{
-  background: var(--brand-weak);
-  color: #163eaa;
-  border: 1px solid rgba(29, 78, 216, .18);
-}
-
-/* ====== Header compact on scroll ====== */
-header.compact .header-inner{
-  padding: 10px 0;
-}
-
-header.compact .logo{
-  font-size: 17px;
-}
-
-header.compact .menu-toggle{
-  width: 40px;
-  height: 40px;
-  border-radius: 11px;
-}
-
-/* 모바일 메뉴 위치도 헤더 높이에 맞춰 살짝 조정 */
-@media (max-width: 560px){
-  header.compact .nav{
-    top: 62px;
-  }
 }

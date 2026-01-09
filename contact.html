@@ -13,6 +13,8 @@
     <div class="logo">아카이브랩스</div>
     <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 
+
+    <nav id="mainNav" class="nav">
       <span class="nav-item">
         <a href="index.html#company" onclick="toggleSub(event)">기업소개</a>
         <div class="submenu">
@@ -69,13 +71,103 @@
 <footer>© 2026 Archive Labs</footer>
 
 <script>
-function toggleMenu(){ document.getElementById("mainNav").classList.toggle("active"); }
-function toggleSub(e){
+function toggleMenu() {
+  const nav = document.getElementById("mainNav");
+  if (!nav) return;
+  nav.classList.toggle("active");
+}
+
+function toggleSub(e) {
   if (window.innerWidth > 560) return;
   e.preventDefault();
-  e.target.closest(".nav-item").classList.toggle("open");
+  const item = e.target.closest(".nav-item");
+  if (item) item.classList.toggle("open");
 }
-</script>
 
+/* ====== Header compact on scroll ====== */
+(function headerCompact(){
+  const header = document.querySelector("header");
+  if (!header) return;
+  const onScroll = () => header.classList.toggle("compact", window.scrollY > 10);
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+})();
+
+/* ====== Active nav (page + section) ====== */
+(function setActiveNav(){
+  const navRoot = document.getElementById("mainNav");
+  if (!navRoot) return;
+
+  const path = location.pathname.split("/").pop() || "index.html";
+  const hash = location.hash;
+
+  const links = navRoot.querySelectorAll("a");
+  links.forEach(a => a.classList.remove("active"));
+
+  // 1) current page
+  links.forEach(a => {
+    const href = a.getAttribute("href") || "";
+    const file = href.split("#")[0];
+    if (file && file === path) a.classList.add("active");
+  });
+
+  // 2) hash specific
+  if (hash) {
+    links.forEach(a => {
+      const href = a.getAttribute("href") || "";
+      if (href.includes(hash) && (href.split("#")[0] === "" || href.split("#")[0] === path)) {
+        a.classList.add("active");
+      }
+    });
+  }
+
+  // 3) section tracking (pages that have ids matching top links)
+  const sections = document.querySelectorAll("section[id], .card[id]");
+  if (!sections.length) return;
+
+  const topLinks = Array.from(navRoot.querySelectorAll(".nav-item > a"));
+  const idToLink = new Map();
+  topLinks.forEach(a => {
+    const href = a.getAttribute("href") || "";
+    if (!href.includes("#")) return;
+    const file = href.split("#")[0] || path;
+    const id = href.split("#")[1];
+    if (file === path && id) idToLink.set(id, a);
+  });
+
+  if (!idToLink.size) return;
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const a = idToLink.get(entry.target.id);
+      if (!a) return;
+      topLinks.forEach(x => x.classList.remove("active"));
+      a.classList.add("active");
+    });
+  }, { threshold: 0.35 });
+
+  sections.forEach(sec => io.observe(sec));
+})();
+
+/* ====== Close mobile menu when clicking outside ====== */
+(function closeOnOutsideClick(){
+  const nav = document.getElementById("mainNav");
+  const toggle = document.querySelector(".menu-toggle");
+  if (!nav || !toggle) return;
+
+  document.addEventListener("click", (e) => {
+    if (window.innerWidth > 560) return;
+    if (!nav.classList.contains("active")) return;
+
+    const insideNav = nav.contains(e.target);
+    const insideToggle = toggle.contains(e.target);
+    if (!insideNav && !insideToggle) {
+      nav.classList.remove("active");
+      document.querySelectorAll(".nav-item.open").forEach(x => x.classList.remove("open"));
+    }
+  });
+})();
+</script>
 </body>
 </html>
