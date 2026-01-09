@@ -80,7 +80,7 @@ function toggleMenu() {
 }
 
 function toggleSub(e) {
-  if (window.innerWidth > 560) return;
+  if (window.innerWidth > 980) return;
   e.preventDefault();
   const item = e.target.closest(".nav-item");
   if (item) item.classList.toggle("open");
@@ -159,7 +159,7 @@ function toggleSub(e) {
   if (!nav || !toggle) return;
 
   document.addEventListener("click", (e) => {
-    if (window.innerWidth > 560) return;
+    if (window.innerWidth > 980) return;
     if (!nav.classList.contains("active")) return;
 
     const insideNav = nav.contains(e.target);
