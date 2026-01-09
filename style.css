@@ -1,625 +1,332 @@
-/* style.css (responsive v2 — menu 안정화 + 여백 개선) */
-
+/* =========================================================
+   Base / Variables
+========================================================= */
 :root{
-  --bg: #f7f9fc;
-  --surface: #ffffff;
-  --text: #0f172a;
-  --muted: #64748b;
-  --line: #e6edf5;
+  --bg:#f7f9fc;
+  --surface:#ffffff;
+  --text:#0f172a;
+  --muted:#64748b;
+  --line:#e6edf5;
 
-  --brand: #1d4ed8;
-  --brand-weak: #e8f0ff;
-  --gold: #b68c2f;
+  --brand:#1d4ed8;
+  --brand-weak:#e8f0ff;
+  --gold:#b68c2f;
 
-  --shadow: 0 10px 30px rgba(15, 23, 42, .08);
-  --shadow-soft: 0 6px 18px rgba(15, 23, 42, .06);
+  --shadow:0 10px 30px rgba(15,23,42,.08);
+  --shadow-soft:0 6px 18px rgba(15,23,42,.06);
 
-  --radius: 16px;
-  --max: 1100px;
+  --radius:16px;
+  --max:1100px;
 }
 
-*{ box-sizing: border-box; }
-html{ scroll-behavior: smooth; }
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
 body{
-  margin: 0;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", Arial, sans-serif;
-  color: var(--text);
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans KR",Arial,sans-serif;
+  color:var(--text);
   background:
-    radial-gradient(1200px 700px at 20% 10%, #eef5ff 0%, transparent 60%),
-    radial-gradient(1100px 650px at 90% 0%, #fff7e6 0%, transparent 55%),
+    radial-gradient(1200px 700px at 20% 10%,#eef5ff 0%,transparent 60%),
+    radial-gradient(1100px 650px at 90% 0%,#fff7e6 0%,transparent 55%),
     var(--bg);
-  line-height: 1.6;
-  overflow-x: hidden;
+  line-height:1.6;
+  overflow-x:hidden;
 }
 
-a{ color: inherit; text-decoration: none; }
-img{ display: block; max-width: 100%; height: auto; }
-.gold{ color: var(--gold); font-weight: 700; }
+a{text-decoration:none;color:inherit;}
+img{max-width:100%;display:block;}
+.gold{color:var(--gold);font-weight:700;}
 
 .container{
-  width: min(var(--max), calc(100% - 28px));
-  margin: 0 auto;
-  padding: clamp(18px, 3.5vw, 36px) 0 clamp(40px, 6vw, 60px);
+  width:min(var(--max),calc(100% - 32px));
+  margin:0 auto;
+  padding:clamp(20px,4vw,36px) 0 clamp(40px,6vw,60px);
 }
 
-/* ========== Header / Nav ========== */
+/* =========================================================
+   Header / Navigation
+========================================================= */
 header{
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: rgba(255,255,255,.86);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--line);
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(255,255,255,.88);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+  will-change:transform;
 }
 
 .header-inner{
-  width: min(var(--max), calc(100% - 28px));
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 14px 0;
-  position: relative;
+  width:min(var(--max),calc(100% - 32px));
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:14px 0;
 }
 
+/* ✅ 로고 크기 고정 (진동 방지 핵심) */
 .logo{
-  font-weight: 900;
-  letter-spacing: -0.02em;
-  font-size: 18px;
-  white-space: nowrap;
+  font-size:18px;
+  font-weight:900;
+  letter-spacing:-0.02em;
+  line-height:1;
+  white-space:nowrap;
+  transform:translateZ(0);
 }
 
 .menu-toggle{
-  width: 42px;
-  height: 42px;
-  display: grid;
-  place-items: center;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: #fff;
-  box-shadow: var(--shadow-soft);
-  cursor: pointer;
-  user-select: none;
+  width:42px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#fff;
+  box-shadow:var(--shadow-soft);
+  cursor:pointer;
 }
 
-/* nav base */
 .nav{
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
 .nav-item{
-  position: relative;
-  display: inline-flex;
-  align-items: center;
+  position:relative;
+  display:inline-flex;
 }
 
-.nav-item > a{
-  display: inline-flex;
-  align-items: center;
-  padding: 10px 14px;           /* ✅ 여백 증가 */
-  border-radius: 14px;
-  font-weight: 800;
-  color: var(--text);
-  transition: background .15s ease, color .15s ease;
-  white-space: nowrap;          /* ✅ 줄바꿈으로 깨지는 것 방지 */
+.nav-item>a{
+  display:inline-flex;
+  align-items:center;
+  padding:10px 14px;
+  border-radius:14px;
+  font-weight:800;
+  transition:.15s;
+  white-space:nowrap;
 }
 
-.nav-item > a::after{
-  content: "▾";
-  font-size: 12px;
-  margin-left: 8px;
-  color: var(--muted);
-  transition: transform .15s ease, color .15s ease;
+.nav-item>a::after{
+  content:"▾";
+  font-size:12px;
+  margin-left:8px;
+  color:var(--muted);
 }
 
-.nav-item > a:hover{
-  background: var(--brand-weak);
-  color: #163eaa;
+.nav-item>a:hover{
+  background:var(--brand-weak);
+  color:var(--brand);
 }
 
 .submenu{
-  position: absolute;
-  top: calc(100% + 10px);
-  left: 0;
-  min-width: 240px;
-  max-width: min(92vw, 340px);
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  box-shadow: var(--shadow);
-  padding: 10px;
-  display: none;
+  position:absolute;
+  top:calc(100% + 6px);
+  left:0;
+  min-width:220px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:8px;
+  box-shadow:var(--shadow);
+  opacity:0;
+  transform:translateY(-6px);
+  pointer-events:none;
+  transition:.18s ease;
 }
 
 .submenu a{
-  display: block;
-  padding: 12px 12px;           /* ✅ 드롭다운 내부 여백 증가 */
-  border-radius: 12px;
-  color: var(--text);
-  font-weight: 750;
-  font-size: 14px;
-  transition: background .15s ease, color .15s ease;
-  word-break: keep-all;
+  display:block;
+  padding:12px;
+  border-radius:10px;
+  font-weight:700;
 }
 
 .submenu a:hover{
-  background: #f1f6ff;
-  color: #163eaa;
+  background:#f1f6ff;
+  color:var(--brand);
 }
 
-.nav-item > a.active,
-.submenu a.active{
-  background: var(--brand-weak);
-  color: #163eaa;
-  border: 1px solid rgba(29, 78, 216, .18);
+.nav-item:hover .submenu,
+.nav-item:focus-within .submenu{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
 }
 
-/* Desktop dropdown: 넓은 화면에서만 hover 드롭다운 */
-@media (min-width: 981px){
-  .menu-toggle{ display: none; }
-  .nav-item:hover .submenu,
-  .nav-item:focus-within .submenu{ display: block; }
-
-  .nav-item:hover > a::after,
-  .nav-item:focus-within > a::after{
-    transform: rotate(180deg);
-    color: #163eaa;
-  }
+/* hover bridge (드롭다운 빨리 꺼지는 문제 해결) */
+.nav-item::after{
+  content:"";
+  position:absolute;
+  top:100%;
+  left:0;
+  width:100%;
+  height:14px;
 }
 
-/* ✅ 메뉴가 깨지던 구간(태블릿/작은 노트북)은 햄버거로 전환 */
-@media (max-width: 980px){
-  .menu-toggle{ display: grid; }
+/* =========================================================
+   Mobile Navigation
+========================================================= */
+@media (max-width:980px){
+  .menu-toggle{display:grid;}
   .nav{
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: calc(100% + 10px);
-    width: min(var(--max), calc(100vw - 20px));
-    display: none;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-    background: rgba(255,255,255,.98);
-    border: 1px solid var(--line);
-    border-radius: 18px;
-    padding: 14px;              /* ✅ 모바일 메뉴 내부 여백 */
-    box-shadow: var(--shadow);
+    position:absolute;
+    top:calc(100% + 10px);
+    left:50%;
+    transform:translateX(-50%);
+    width:calc(100% - 24px);
+    background:rgba(255,255,255,.98);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:14px;
+    box-shadow:0 20px 40px rgba(15,23,42,.14);
+    flex-direction:column;
+    gap:10px;
+    display:none;
   }
-  .nav.active{ display: flex; }
+  .nav.active{display:flex;}
 
-  .nav-item{ width: 100%; }
-  .nav-item > a{
-    width: 100%;
-    justify-content: space-between;
-    padding: 14px 14px;         /* ✅ 터치 타겟/여백 */
-    border-radius: 14px;
+  .nav-item{
+    width:100%;
+    flex-direction:column;
+  }
+
+  .nav-item>a{
+    width:100%;
+    justify-content:space-between;
   }
 
   .submenu{
-    position: static;
-    display: none;
-    box-shadow: none;
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    margin-top: 10px;
-    max-width: 100%;
-    padding: 10px;
+    position:static;
+    max-height:0;
+    overflow:hidden;
+    opacity:0;
+    transform:translateY(-4px);
+    transition:.25s ease;
+    pointer-events:none;
   }
 
-  .nav-item.open .submenu{ display: block; }
-
-  .nav-item.open > a::after{
-    transform: rotate(180deg);
-    color: #163eaa;
+  .nav-item.open .submenu{
+    max-height:400px;
+    opacity:1;
+    transform:none;
+    pointer-events:auto;
   }
 }
 
-/* Header compact */
-header.compact .header-inner{ padding: 10px 0; }
-header.compact .logo{ font-size: 17px; }
-header.compact .menu-toggle{ width: 40px; height: 40px; border-radius: 11px; }
-
-/* ========== Hero ========== */
+/* =========================================================
+   Hero
+========================================================= */
 .hero{
-  border-bottom: 1px solid var(--line);
-  padding: clamp(28px, 5vw, 56px) 0 clamp(22px, 4vw, 40px);
+  border-bottom:1px solid var(--line);
+  padding:clamp(32px,6vw,56px) 0;
 }
 
 .hero-content{
-  width: min(var(--max), calc(100% - 28px));
-  margin: 0 auto;
-  background: rgba(255,255,255,.76);
-  border: 1px solid var(--line);
-  border-radius: 22px;
-  box-shadow: var(--shadow-soft);
-  padding: clamp(24px, 4.6vw, 44px) clamp(18px, 3.2vw, 34px); /* ✅ 내부 여백 증가 */
+  width:min(var(--max),calc(100% - 32px));
+  margin:0 auto;
+  background:rgba(255,255,255,.78);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:clamp(24px,4vw,40px);
+  box-shadow:var(--shadow-soft);
 }
 
 .hero h1{
-  margin: 0 0 10px;
-  font-size: clamp(24px, 4.6vw, 44px);
-  line-height: 1.18;
-  letter-spacing: -0.03em;
-  word-break: keep-all;
+  font-size:clamp(26px,4.5vw,44px);
+  line-height:1.2;
+  letter-spacing:-0.03em;
 }
 
-.hero p{
-  margin: 0 0 18px;
-  color: var(--muted);
-  font-weight: 700;
-}
+.hero p{color:var(--muted);font-weight:700;}
 
 .hero-actions{
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  margin-top:18px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
 }
 
-/* Buttons */
+/* =========================================================
+   Buttons
+========================================================= */
 .btn{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 11px 16px;           /* ✅ 여백 증가 */
-  border-radius: 14px;
-  border: 1px solid var(--line);
-  background: #fff;
-  color: var(--text);
-  font-weight: 800;
-  font-size: 14px;
-  box-shadow: var(--shadow-soft);
-  transition: transform .15s ease, box-shadow .15s ease;
-  white-space: nowrap;
+  padding:11px 16px;
+  border-radius:14px;
+  border:1px solid var(--line);
+  background:#fff;
+  font-weight:800;
+  box-shadow:var(--shadow-soft);
+  transition:.15s;
 }
 
 .btn:hover{
-  transform: translateY(-1px);
-  box-shadow: 0 10px 24px rgba(15, 23, 42, .10);
+  transform:translateY(-1px);
+  box-shadow:0 10px 24px rgba(15,23,42,.12);
 }
 
 .btn-primary{
-  background: linear-gradient(180deg, #2b63ff 0%, #1d4ed8 100%);
-  border-color: rgba(29, 78, 216, .35);
-  color: white;
+  background:linear-gradient(180deg,#2b63ff,#1d4ed8);
+  color:#fff;
 }
 
-@media (max-width: 380px){
-  .btn{ width: 100%; }
-  .hero-actions{ gap: 8px; }
-}
-
-/* Cards */
+/* =========================================================
+   Cards / Grid
+========================================================= */
 .card{
-  background: rgba(255,255,255,.94);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-soft);
-  padding: clamp(18px, 3.8vw, 26px);  /* ✅ “네모 안 글이 끝에 붙는” 느낌 완화 */
-  margin-top: 16px;
+  background:rgba(255,255,255,.95);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:clamp(20px,4vw,28px);
+  box-shadow:var(--shadow-soft);
 }
 
-.card h2{ margin: 0 0 12px; letter-spacing: -0.02em; }
-.card p{ margin: 10px 0; color: #1f2937; word-break: keep-all; }
-
-/* Forms */
-input, textarea, select{ max-width: 100%; font: inherit; }
-textarea{ resize: vertical; }
-
-/* Image grid */
 .image-grid{
-  margin-top: 22px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 18px;
+  margin-top:22px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:18px;
 }
 
 .image-card{
-  background: rgba(255,255,255,.94);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: var(--shadow-soft);
-  transition: transform .15s ease, box-shadow .15s ease;
-  min-width: 0;
+  border-radius:var(--radius);
+  overflow:hidden;
+  box-shadow:var(--shadow-soft);
 }
-
-.image-card img{
-  width: 100%;
-  height: clamp(170px, 22vw, 230px);
-  object-fit: cover;
-  background: #eef2ff;
-}
-
-.pad{ padding: clamp(16px, 3.2vw, 22px); } /* ✅ 카드 내부 텍스트 여백 */
-.pad h3{ margin: 0 0 8px; letter-spacing: -0.02em; }
-.pad p{ margin: 0; color: var(--muted); font-weight: 700; font-size: 14px; }
-
-/* Footer */
-footer{
-  border-top: 1px solid var(--line);
-  padding: 18px 0;
-  text-align: center;
-  color: var(--muted);
-  font-weight: 700;
-  background: rgba(255,255,255,.7);
-}
-
-/* Defensive */
-iframe, table{ max-width: 100%; }
-
 
 /* =========================================================
-   Enhancements v3: menu animation + dropdown polish
-   - mobile nav: slide + fade
-   - submenu: fade + lift (desktop), smooth open (mobile)
-   - subtle dividers inside submenu
-   ========================================================= */
-
-/* Respect reduced motion */
-@media (prefers-reduced-motion: reduce){
-  *{ animation: none !important; transition: none !important; scroll-behavior: auto !important; }
-}
-
-/* Desktop submenu animation (fade + lift) */
-@media (min-width: 981px){
-  .submenu{
-    display: block;              /* keep in flow for animation */
-    opacity: 0;
-    transform: translateY(-6px);
-    pointer-events: none;
-    transition: opacity .16s ease, transform .16s ease;
-  }
-  .nav-item:hover .submenu,
-  .nav-item:focus-within .submenu{
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-}
-
-/* Submenu dividers */
-.submenu a{
-  position: relative;
-}
-.submenu a + a{
-  margin-top: 2px;
-}
-.submenu a + a::before{
-  content: "";
-  position: absolute;
-  left: 12px;
-  right: 12px;
-  top: -1px;
-  height: 1px;
-  background: rgba(230, 237, 245, .9);
-}
-
-/* Mobile nav: slide down + fade (instead of sudden display) */
-@media (max-width: 980px){
-  .nav{
-    /* already absolute/flex column in v2 */
-    display: flex;              /* keep rendered for animation */
-    opacity: 0;
-    transform: translate(-50%, -6px);
-    pointer-events: none;
-    transition: opacity .18s ease, transform .18s ease;
-  }
-  .nav.active{
-    opacity: 1;
-    transform: translate(-50%, 0);
-    pointer-events: auto;
-  }
-
-  /* Mobile submenu: smooth open using grid rows (no JS changes) */
-  .submenu{
-    display: grid;
-    grid-template-rows: 0fr;
-    opacity: .98;
-    transition: grid-template-rows .2s ease;
-    overflow: hidden;
-  }
-  .nav-item.open .submenu{
-    grid-template-rows: 1fr;
-  }
-  .submenu > a{
-    overflow: hidden; /* needed for grid 0fr */
-  }
-}
-
-/* Small shadow + separators for mobile menu container */
-@media (max-width: 980px){
-  .nav{
-    box-shadow: 0 18px 45px rgba(15, 23, 42, .14);
-  }
-}
-
-/* Hover polish */
-.nav-item > a{
-  transition: background .15s ease, color .15s ease, transform .15s ease;
-}
-.nav-item > a:hover{
-  transform: translateY(-1px);
-}
-
-
-/* ====== Fix: mobile nav item should stack submenu under the parent ====== */
-@media (max-width: 980px){
-  .nav-item{
-    display: flex;              /* override inline-flex */
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .submenu{
-    width: 100%;
-  }
-}
-
-
-/* =========================================================
-   Mobile dropdown: vertical full-width + slide animation
-   - submenu stacks under parent, full width
-   - smooth slide down/up using max-height + opacity
-   ========================================================= */
-@media (max-width: 980px){
-  .nav-item{
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-  }
-
-  .nav-item > a{ width: 100%; }
-
-  /* animated dropdown */
-  .submenu{
-    position: static;
-    width: 100%;
-    max-width: 100%;
-    display: block !important;     /* keep rendered for animation */
-    overflow: hidden;
-
-    max-height: 0;
-    opacity: 0;
-    transform: translateY(-4px);
-
-    padding: 0 10px;               /* collapsed padding */
-    border-width: 1px;
-    transition:
-      max-height .26s ease,
-      opacity .18s ease,
-      transform .18s ease,
-      padding .22s ease;
-    will-change: max-height, opacity, transform;
-  }
-
-  .nav-item.open .submenu{
-    max-height: 420px;             /* enough for your current items */
-    opacity: 1;
-    transform: translateY(0);
-    padding: 10px;                 /* expanded padding */
-  }
-
-  .submenu a{
-    width: 100%;
-    padding: 12px 12px;
-  }
-}
-
-/* reduced-motion: no slide, just show/hide */
-@media (prefers-reduced-motion: reduce) and (max-width: 980px){
-  .submenu{ transition: none !important; transform: none !important; }
-}
-
-
-
-
-/* ========== Contact page layout ========== */
+   Contact Page
+========================================================= */
 .contact-grid{
-  margin-top: 18px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
+  margin-top:18px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
 }
 
-.contact-panel{
-  background: rgba(255,255,255,.94);
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  padding: clamp(16px, 3.2vw, 22px);
-  box-shadow: var(--shadow-soft);
-  min-width: 0;
+@media (max-width:860px){
+  .contact-grid{grid-template-columns:1fr;}
 }
 
-.contact-panel h3{
-  margin: 0 0 12px;
-  letter-spacing: -0.02em;
-}
-
-.contact-lines{
-  display: grid;
-  gap: 10px;
-}
-
-.contact-lines .line{
-  display: grid;
-  grid-template-columns: 72px 1fr;
-  gap: 12px;
-  align-items: start;
-  padding: 10px 0;
-}
-
-.contact-lines .line + .line{
-  border-top: 1px dashed var(--line);
-}
-
-.contact-lines .k{
-  color: var(--muted);
-  font-weight: 850;
-  font-size: 13px;
-}
-
-.contact-lines .v{
-  font-weight: 750;
-  word-break: keep-all;
-}
-
-.contact-lines .v a{
-  color: var(--brand);
-  font-weight: 900;
-}
-
-.hint{
-  display: block;
-  margin-top: 6px;
-  color: var(--muted);
-  font-weight: 650;
-  font-size: 12px;
-}
-
-.contact-actions{
-  margin-top: 14px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.muted{ color: var(--muted); }
-.small{ font-size: 13px; }
-
-/* map wrap (kakao roughmap) */
 .map-wrap{
-  margin-top: 6px;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow-soft);
-  background: rgba(255,255,255,.9);
-}
-.root_daum_roughmap{ width: 100% !important; }
-
-/* Responsive: stack panels */
-@media (max-width: 860px){
-  .contact-grid{ grid-template-columns: 1fr; }
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  box-shadow:var(--shadow-soft);
 }
 
+.root_daum_roughmap{width:100%!important;}
 
-
-/* ========== Desktop dropdown stability (prevents quick close) ========== */
-@media (min-width: 981px){
-  .submenu{ top: calc(100% + 6px); }
-
-  /* hover bridge */
-  .nav-item::after{
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 100%;
-    width: 100%;
-    height: 14px;
-    background: transparent;
-  }
+/* =========================================================
+   Footer
+========================================================= */
+footer{
+  margin-top:40px;
+  padding:18px 0;
+  border-top:1px solid var(--line);
+  text-align:center;
+  color:var(--muted);
+  font-weight:700;
 }
