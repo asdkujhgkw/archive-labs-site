@@ -560,3 +560,52 @@ iframe, table{ max-width: 100%; }
     transition-delay: 0s; /* 열릴 땐 바로 */
   }
 }
+
+/* ====== Contact info (오시는 길) ====== */
+.contact-info-box{
+  margin-top: 22px;
+  padding: clamp(18px, 3.8vw, 26px);
+  border-radius: 16px;
+  background: rgba(255,255,255,.96);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-soft);
+}
+
+.contact-row{
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 12px;
+  padding: 10px 0;
+}
+
+.contact-row + .contact-row{
+  border-top: 1px dashed var(--line);
+}
+
+.contact-row .label{
+  font-weight: 800;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.contact-row .value{
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.contact-row a{
+  color: var(--brand);
+  font-weight: 800;
+}
+
+/* 모바일 */
+@media (max-width: 480px){
+  .contact-row{
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  .contact-row .label{
+    font-size: 13px;
+  }
+}
