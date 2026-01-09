@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>정부용역 보고서 | 아카이브랩스</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">아카이브랩스</div>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+    <nav id="mainNav">
+      <a href="index.html">메인</a>
+
+      <div class="nav-item">
+        <a href="index.html#company" onclick="toggleSub(event)">기업소개</a>
+        <div class="submenu">
+          <a href="index-history.html">연혁 및 주요 사업실적</a>
+          <a href="index-partners.html">주요 파트너사</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <a href="tasks.html" onclick="toggleSub(event)">수행과업</a>
+        <div class="submenu">
+          <a href="tasks-government.html">정부용역 보고서</a>
+          <a href="tasks-consulting.html">논문 컨설팅</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <a href="contact.html" onclick="toggleSub(event)">Contact</a>
+        <div class="submenu">
+          <a href="contact-info.html">연락처</a>
+          <a href="contact-qna.html">1:1 질문</a>
+          <a href="contact-map.html">오시는 길</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <h1>정부용역 보고서</h1>
+
+  <div class="card">
+    <h2>제공 서비스</h2>
+    <p style="margin-top:10px;">
+      • 조사 설계(표본/문항/절차)<br>
+      • 현장조사 운영 및 품질관리(QC)<br>
+      • 통계 분석 및 인사이트 도출<br>
+      • 결과보고서/요약본/발표자료 작성
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>대표 산출물(예시)</h2>
+    <p style="margin-top:10px;">
+      • 정책수요 조사 보고서<br>
+      • 만족도/실태조사 결과보고서<br>
+      • 성과평가 보고서 및 환류전략
+    </p>
+  </div>
+
+  <p style="margin-top:14px;">
+    <a class="btn" href="tasks.html">← 수행과업으로</a>
+    <a class="btn btn-primary" href="contact-qna.html">의뢰 문의</a>
+  </p>
+</div>
+
+<footer>© 2026 Archive Labs</footer>
+
+<script>
+function toggleMenu() {
+  const nav = document.getElementById("mainNav");
+  nav.classList.toggle("active");
+}
+function toggleSub(e) {
+  if (window.innerWidth > 560) return;
+  e.preventDefault();
+  const item = e.target.closest(".nav-item");
+  item.classList.toggle("open");
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1:1 질문 | 아카이브랩스</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">아카이브랩스</div>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+    <nav id="mainNav">
+      <a href="index.html">메인</a>
+
+      <div class="nav-item">
+        <a href="index.html#company" onclick="toggleSub(event)">기업소개</a>
+        <div class="submenu">
+          <a href="index-history.html">연혁 및 주요 사업실적</a>
+          <a href="index-partners.html">주요 파트너사</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <a href="tasks.html" onclick="toggleSub(event)">수행과업</a>
+        <div class="submenu">
+          <a href="tasks-government.html">정부용역 보고서</a>
+          <a href="tasks-consulting.html">논문 컨설팅</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <a href="contact.html" onclick="toggleSub(event)">Contact</a>
+        <div class="submenu">
+          <a href="contact-info.html">연락처</a>
+          <a href="contact-qna.html">1:1 질문</a>
+          <a href="contact-map.html">오시는 길</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <h1>1:1 질문</h1>
+
+  <div class="card">
+    <p>
+      현재는 “설치 없이 파일로 미리보기” 방식이라,
+      제출 버튼은 이메일 작성 화면을 열어 문의를 보내는 방식입니다.
+    </p>
+
+    <form onsubmit="return sendMail(event)">
+      <p>
+        <label>기관/회사명<br>
+          <input id="org" required style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:rgba(0,0,0,0.2);color:var(--text)">
+        </label>
+      </p>
+      <p>
+        <label>담당자명<br>
+          <input id="name" required style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:rgba(0,0,0,0.2);color:var(--text)">
+        </label>
+      </p>
+      <p>
+        <label>이메일<br>
+          <input id="email" type="email" required style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:rgba(0,0,0,0.2);color:var(--text)">
+        </label>
+      </p>
+      <p>
+        <label>문의내용<br>
+          <textarea id="msg" rows="6" required style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:rgba(0,0,0,0.2);color:var(--text)"></textarea>
+        </label>
+      </p>
+
+      <button class="btn btn-primary" type="submit">이메일로 문의 보내기</button>
+      <a class="btn" href="contact-info.html" style="margin-left:8px;">연락처 보기</a>
+    </form>
+  </div>
+</div>
+
+<footer>© 2026 Archive Labs</footer>
+
+<script>
+function toggleMenu() {
+  const nav = document.getElementById("mainNav");
+  nav.classList.toggle("active");
+}
+function toggleSub(e) {
+  if (window.innerWidth > 560) return;
+  e.preventDefault();
+  const item = e.target.closest(".nav-item");
+  item.classList.toggle("open");
+}
+
+function sendMail(e){
+  e.preventDefault();
+  const to = "contact@archivelabs.co.kr"; // 실제 받을 이메일로 변경
+  const subject = "[아카이브랩스] 1:1 문의";
+  const body =
+    "기관/회사명: " + document.getElementById("org").value + "%0D%0A" +
+    "담당자명: " + document.getElementById("name").value + "%0D%0A" +
+    "이메일: " + document.getElementById("email").value + "%0D%0A%0D%0A" +
+    "문의내용:%0D%0A" + encodeURIComponent(document.getElementById("msg").value);
+  window.location.href = "mailto:" + to + "?subject=" + encodeURIComponent(subject) + "&body=" + body;
+  return false;
+}
+</script>
+
+</body>
+</html>

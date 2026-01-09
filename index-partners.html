@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>주요 파트너사 | 아카이브랩스</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">아카이브랩스</div>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+    <nav id="mainNav">
+      <a href="index.html">메인</a>
+
+      <div class="nav-item">
+        <a href="index.html#company" onclick="toggleSub(event)">기업소개</a>
+        <div class="submenu">
+          <a href="index-history.html">연혁 및 주요 사업실적</a>
+          <a href="index-partners.html">주요 파트너사</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <a href="tasks.html" onclick="toggleSub(event)">수행과업</a>
+        <div class="submenu">
+          <a href="tasks-government.html">정부용역 보고서</a>
+          <a href="tasks-consulting.html">논문 컨설팅</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <a href="contact.html" onclick="toggleSub(event)">Contact</a>
+        <div class="submenu">
+          <a href="contact-info.html">연락처</a>
+          <a href="contact-qna.html">1:1 질문</a>
+          <a href="contact-map.html">오시는 길</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <h1>주요 파트너사</h1>
+
+  <div class="card">
+    <h2>협력 기관/파트너(예시)</h2>
+    <p style="margin-top:10px;">
+      • 공공기관 A<br>
+      • 연구기관 B<br>
+      • 학회/연구회 C<br>
+      • 컨설팅/데이터 파트너 D
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>파트너십 제안</h2>
+    <p style="margin-top:10px;">
+      공동연구 및 협업 제안은 <a class="gold" href="contact-qna.html">1:1 질문</a>을 통해 남겨주세요.
+    </p>
+  </div>
+</div>
+
+<footer>© 2026 Archive Labs</footer>
+
+<script>
+function toggleMenu() {
+  const nav = document.getElementById("mainNav");
+  nav.classList.toggle("active");
+}
+function toggleSub(e) {
+  if (window.innerWidth > 560) return;
+  e.preventDefault();
+  const item = e.target.closest(".nav-item");
+  item.classList.toggle("open");
+}
+</script>
+
+</body>
+</html>
