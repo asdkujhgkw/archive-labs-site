@@ -5,12 +5,460 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>상담문의 | 아카이브랩스</title>
   <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* Fade-in on scroll */
+    .fade-in{
+      opacity:0;
+      transform: translateY(14px);
+      transition: opacity .7s ease, transform .7s ease;
+      will-change: opacity, transform;
+    }
+    .fade-in.is-visible{
+      opacity:1;
+      transform:none;
+    }
+
+    /* 상단 문의 */
+    .subpage-head{ margin-bottom:24px; }
+    .subpage-title{
+      margin:10px 0 10px;
+      letter-spacing:-0.03em;
+      line-height:1.2;
+      font-size:1.55rem;
+    }
+    .subpage-line{
+      height:1px;
+      background:var(--line);
+      opacity:.9;
+    }
+
+    /* 약관 섹션 */
+    .terms-section {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 28px 24px;
+      margin-bottom: 40px;
+      border: 1px solid #e5e7eb;
+    }
+
+    .terms-title {
+      text-align: center;
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      color: #1f2937;
+      letter-spacing: -0.02em;
+    }
+
+    .terms-intro {
+      font-size: 0.92rem;
+      color: #4b5563;
+      line-height: 1.7;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .terms-box {
+      background: white;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      padding: 18px 20px;
+      margin-bottom: 16px;
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: #374151;
+    }
+
+    .terms-box strong {
+      color: #1f2937;
+      font-weight: 700;
+    }
+
+    .terms-box ul {
+      margin: 8px 0 0 0;
+      padding-left: 20px;
+    }
+
+    .terms-box li {
+      margin-bottom: 4px;
+    }
+
+    .terms-notice {
+      font-size: 0.88rem;
+      color: #6b7280;
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+
+    .terms-agree {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .terms-agree input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .terms-agree label {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #1f2937;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* 문의하기 폼 */
+    .inquiry-section {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .inquiry-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: #1f2937;
+      letter-spacing: -0.02em;
+    }
+
+    .inquiry-required {
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-bottom: 28px;
+      text-align: right;
+    }
+
+    .form-group {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      gap: 16px;
+    }
+
+    .form-label {
+      min-width: 100px;
+      padding-top: 12px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #1f2937;
+    }
+
+    .form-label .required {
+      color: #dc2626;
+      margin-left: 2px;
+    }
+
+    .form-input-wrap {
+      flex: 1;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 0.92rem;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #2d7da8;
+      box-shadow: 0 0 0 3px rgba(45, 125, 168, 0.1);
+    }
+
+    .form-input::placeholder {
+      color: #9ca3af;
+    }
+
+    textarea.form-input {
+      min-height: 180px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+
+    /* 연락처 3개 입력칸 */
+    .phone-group {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .phone-group .form-input {
+      flex: 1;
+      text-align: center;
+    }
+
+    .phone-group .separator {
+      color: #6b7280;
+      font-weight: 600;
+    }
+
+    /* 파일 첨부 */
+    .file-upload-area {
+      border: 2px dashed #d1d5db;
+      border-radius: 8px;
+      padding: 24px;
+      text-align: center;
+      background: #f9fafb;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .file-upload-area:hover {
+      border-color: #2d7da8;
+      background: #f0f9ff;
+    }
+
+    .file-upload-area.drag-over {
+      border-color: #2d7da8;
+      background: #e0f2fe;
+    }
+
+    .file-upload-icon {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: #6b7280;
+    }
+
+    .file-upload-text {
+      font-size: 0.95rem;
+      color: #374151;
+      margin-bottom: 8px;
+    }
+
+    .file-upload-hint {
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    .file-input-hidden {
+      display: none;
+    }
+
+    .file-list {
+      margin-top: 16px;
+    }
+
+    .file-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+
+    .file-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .file-icon {
+      font-size: 1.2rem;
+    }
+
+    .file-name {
+      font-size: 0.9rem;
+      color: #374151;
+      font-weight: 500;
+    }
+
+    .file-size {
+      font-size: 0.8rem;
+      color: #6b7280;
+      margin-left: 8px;
+    }
+
+    .file-remove {
+      background: none;
+      border: none;
+      color: #dc2626;
+      cursor: pointer;
+      font-size: 1.2rem;
+      padding: 4px 8px;
+      transition: all 0.2s ease;
+    }
+
+    .file-remove:hover {
+      background: #fee2e2;
+      border-radius: 4px;
+    }
+
+    /* 자동등록방지 */
+    .captcha-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .captcha-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .captcha-checkbox input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .captcha-checkbox label {
+      font-size: 0.9rem;
+      color: #374151;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .captcha-badge {
+      background: #f3f4f6;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 0.8rem;
+      color: #6b7280;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .captcha-badge::before {
+      content: "reCAPTCHA";
+      font-weight: 600;
+      color: #4b5563;
+    }
+
+    /* 버튼 영역 */
+    .form-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .btn {
+      padding: 13px 48px;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      letter-spacing: -0.01em;
+    }
+
+    .btn-submit {
+      background: linear-gradient(135deg, #1e5a7d 0%, #2d7da8 100%);
+      color: white;
+      box-shadow: 0 2px 8px rgba(45, 125, 168, 0.3);
+    }
+
+    .btn-submit:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(45, 125, 168, 0.4);
+    }
+
+    .btn-submit:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .btn-submit.loading {
+      background: #6b7280;
+      cursor: wait;
+    }
+
+    .btn-cancel {
+      background: white;
+      color: #374151;
+      border: 1px solid #d1d5db;
+    }
+
+    .btn-cancel:hover {
+      background: #f9fafb;
+      border-color: #9ca3af;
+    }
+
+    /* 로딩 스피너 */
+    .spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #ffffff;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* 반응형 */
+    @media (max-width: 768px) {
+      .form-group {
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .form-label {
+        min-width: auto;
+        padding-top: 0;
+      }
+
+      .phone-group {
+        gap: 8px;
+      }
+
+      .form-actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .terms-section {
+        padding: 20px 16px;
+      }
+
+      .captcha-group {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .file-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+    }
+  </style>
 </head>
+
 <body>
 <header>
   <div class="header-inner">
     <a class="logo" href="00_index.html" aria-label="아카이브랩스 홈">
-      <!-- 로고 파일을 같은 폴더에 logo.png로 넣으면 자동 표시됩니다 -->
       <img src="logo.png" alt="아카이브랩스 로고" style="height:28px;width:auto" onerror="this.style.display='none';this.parentElement.textContent='ARCHIVE LABS';" />
     </a>
 
@@ -55,52 +503,156 @@
 <section class="hero">
   <div class="hero-content">
     <h1>상담문의</h1>
-    <p>아래 양식으로 남겨주시면 빠르게 연락드리겠습니다.</p>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="04_contact.html">상담 문의하기</a>
-      <a class="btn" href="03_news.html">최근 소식 보기</a>
-    </div>
+    <div class="hero-actions"></div>
   </div>
 </section>
 
 <main class="container">
-  
-<section class="card">
-  <h2 style="margin:0 0 8px">상담 문의</h2>
-  <p style="margin:0;color:var(--muted);font-weight:700">* 표시는 필수 입력입니다.</p>
+  <section class="page-wrap" style="margin-top:-28px">
+    <div class="card" style="padding:32px 28px 40px">
+      
+      <!-- 약관 동의 섹션 -->
+      <div class="terms-section fade-in">
+        <h2 class="terms-title">상담문의</h2>
+        <p class="terms-intro">
+          사회적협동조합아카이브랩스는 개인정보보호 수집 및 이용목적에 따라 적법조사로 다음과 같은 사유에 의해 관련법규 요구 및 요청이 있을 경우 고객의 고지 또는 동의가 없이도 사전수집 목적 외의 개인정보 이용을 하게 됩니다.
+        </p>
 
-  <div class="contact-grid">
-    <form class="card" style="padding:18px" onsubmit="event.preventDefault();alert('문의가 접수되었습니다(예시).');">
-      <label style="display:block;font-weight:900;margin-bottom:6px">이름 *</label>
-      <input required style="width:100%;padding:12px 14px;border-radius:14px;border:1px solid var(--line);margin-bottom:12px" />
+        <div class="terms-box">
+          <strong>[이용 목적] 상담문의</strong><br>
+          <strong>[수집항목]</strong> 개인정보 목적항 (이름, 소속, 연락처, 이메일)<br>
+          <strong>[개인정보의 보유 및 이용 기간]</strong> 수집 및 이용목적이 달성되면 완전 파기
+        </div>
 
-      <label style="display:block;font-weight:900;margin-bottom:6px">이메일 *</label>
-      <input type="email" required style="width:100%;padding:12px 14px;border-radius:14px;border:1px solid var(--line);margin-bottom:12px" />
+        <p class="terms-notice">
+          ※ 정보주체가 위는 이용목적 개인정보의 수집에 대한 거부권을 할 수 있으며, 이 경우 신청하신 상담예약 개인정보를 거부하면 이용을 제한받을 수 있습니다.
+        </p>
 
-      <label style="display:block;font-weight:900;margin-bottom:6px">연락처</label>
-      <input style="width:100%;padding:12px 14px;border-radius:14px;border:1px solid var(--line);margin-bottom:12px" />
-
-      <label style="display:block;font-weight:900;margin-bottom:6px">문의 내용 *</label>
-      <textarea required rows="6" style="width:100%;padding:12px 14px;border-radius:14px;border:1px solid var(--line);margin-bottom:14px"></textarea>
-
-      <button class="btn btn-primary" type="submit">문의 제출</button>
-      <a class="btn" href="01_5_location.html" style="margin-left:8px">오시는 길</a>
-    </form>
-
-    <div class="card" style="padding:18px">
-      <h3 style="margin:0 0 10px">연락처</h3>
-      <p style="margin:0;color:var(--muted);font-weight:700">
-        전화: 02-0000-0000<br/>
-        이메일: contact@archivelabs.co.kr<br/>
-        운영시간: 평일 09:00 - 18:00
-      </p>
-      <div class="map-wrap" style="margin-top:14px;min-height:260px;display:grid;place-items:center;color:var(--muted);font-weight:800">
-        지도 임베드 영역
+        <div class="terms-agree">
+          <input type="checkbox" id="agreeTerms" />
+          <label for="agreeTerms">개인정보 수집에 동의합니다.</label>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
 
+      <!-- 문의하기 폼 -->
+      <div class="inquiry-section fade-in">
+        <h2 class="inquiry-title">문의하기</h2>
+        <p class="inquiry-required">* 표시는 필수 입력사항입니다.</p>
+
+        <form id="inquiryForm" onsubmit="return handleSubmit(event)">
+          
+          <!-- 이름 -->
+          <div class="form-group">
+            <label class="form-label">이름<span class="required">*</span></label>
+            <div class="form-input-wrap">
+              <input type="text" class="form-input" name="name" required placeholder="이름을 입력하세요" />
+            </div>
+          </div>
+
+          <!-- 소속 -->
+          <div class="form-group">
+            <label class="form-label">소속<span class="required">*</span></label>
+            <div class="form-input-wrap">
+              <input type="text" class="form-input" name="organization" required placeholder="소속을 입력하세요" />
+            </div>
+          </div>
+
+          <!-- 부서 -->
+          <div class="form-group">
+            <label class="form-label">부서</label>
+            <div class="form-input-wrap">
+              <input type="text" class="form-input" name="department" placeholder="부서를 입력하세요" />
+            </div>
+          </div>
+
+          <!-- 직급/직급 -->
+          <div class="form-group">
+            <label class="form-label">직급/직급</label>
+            <div class="form-input-wrap">
+              <input type="text" class="form-input" name="position" placeholder="직급/직급을 입력하세요" />
+            </div>
+          </div>
+
+          <!-- 연락처 -->
+          <div class="form-group">
+            <label class="form-label">연락처<span class="required">*</span></label>
+            <div class="form-input-wrap">
+              <div class="phone-group">
+                <input type="tel" class="form-input" name="phone1" maxlength="3" required placeholder="010" />
+                <span class="separator">-</span>
+                <input type="tel" class="form-input" name="phone2" maxlength="4" required placeholder="1234" />
+                <span class="separator">-</span>
+                <input type="tel" class="form-input" name="phone3" maxlength="4" required placeholder="5678" />
+              </div>
+            </div>
+          </div>
+
+          <!-- 이메일 -->
+          <div class="form-group">
+            <label class="form-label">이메일<span class="required">*</span></label>
+            <div class="form-input-wrap">
+              <input type="email" class="form-input" name="email" required placeholder="example@domain.com" />
+            </div>
+          </div>
+
+          <!-- 제목 -->
+          <div class="form-group">
+            <label class="form-label">제목<span class="required">*</span></label>
+            <div class="form-input-wrap">
+              <input type="text" class="form-input" name="title" required placeholder="문의 제목을 입력하세요" />
+            </div>
+          </div>
+
+          <!-- 내용 -->
+          <div class="form-group">
+            <label class="form-label">내용<span class="required">*</span></label>
+            <div class="form-input-wrap">
+              <textarea class="form-input" name="content" required placeholder="문의 내용을 입력하세요"></textarea>
+            </div>
+          </div>
+
+          <!-- 파일 첨부 -->
+          <div class="form-group">
+            <label class="form-label">파일 첨부</label>
+            <div class="form-input-wrap">
+              <div class="file-upload-area" id="fileUploadArea">
+                <div class="file-upload-icon">📎</div>
+                <div class="file-upload-text">파일을 드래그하거나 클릭하여 선택하세요</div>
+                <div class="file-upload-hint">최대 10MB, 최대 5개 파일 (jpg, png, pdf, doc, docx, xls, xlsx, zip)</div>
+              </div>
+              <input type="file" id="fileInput" class="file-input-hidden" multiple 
+                     accept=".jpg,.jpeg,.png,.pdf,.doc,.docx,.xls,.xlsx,.zip" />
+              <div class="file-list" id="fileList"></div>
+            </div>
+          </div>
+
+          <!-- 자동등록방지 -->
+          <div class="form-group">
+            <label class="form-label">자동등록방지</label>
+            <div class="form-input-wrap">
+              <div class="captcha-group">
+                <div class="captcha-checkbox">
+                  <input type="checkbox" id="captcha" required />
+                  <label for="captcha">로봇이 아닙니다.</label>
+                </div>
+                <div class="captcha-badge">
+                  Privacy - Terms
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 버튼 -->
+          <div class="form-actions">
+            <button type="submit" class="btn btn-submit" id="submitBtn" disabled>상담신청</button>
+            <button type="button" class="btn btn-cancel" onclick="resetForm()">취소</button>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </section>
 </main>
 
 <footer class="site-footer">
@@ -121,22 +673,298 @@
   </div>
 </footer>
 
-<style>
-  .site-footer{ margin-top:24px; padding:18px 0 30px; border-top:1px solid var(--line); background: rgba(255,255,255,.01); }
-  .foot-grid{ display:grid; grid-template-columns: 280px 1fr; gap:18px; align-items:start; }
-  .foot-logo-img{ height:38px; width:auto; display:block; }
-  .foot-logo-fallback{ font-weight:950; font-size:26px; letter-spacing:-0.03em; }
-  .foot-company{ color:var(--muted); font-weight:850; margin-top:8px; }
-  .foot-row{ color:var(--muted); font-weight:750; line-height:1.9; }
-  .foot-row b{ color:#fff; font-weight:950; margin-right:8px; }
-  .foot-copy{ margin-top:10px; color:var(--muted); font-weight:800; }
-  @media (max-width: 980px){ .foot-grid{ grid-template-columns:1fr; } }
-</style>
-
-<script>
-  document.querySelectorAll('.site-footer .yy').forEach(el => el.textContent = new Date().getFullYear());
-</script>
-
 <script src="script.js"></script>
+<script>
+  // ⚠️ 여기에 구글 Apps Script Web App URL을 입력하세요
+  const GOOGLE_SCRIPT_URL = 'YOUR_GOOGLE_SCRIPT_URL_HERE';
+
+  // 전역 변수
+  let selectedFiles = [];
+
+  // 페이드인 애니메이션
+  (function(){
+    var els = document.querySelectorAll('.fade-in');
+    if(!('IntersectionObserver' in window) || !els.length){
+      els.forEach(function(el){ el.classList.add('is-visible'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    els.forEach(function(el){ io.observe(el); });
+  })();
+
+  // 약관 동의 체크에 따른 버튼 활성화
+  const agreeCheckbox = document.getElementById('agreeTerms');
+  const submitBtn = document.getElementById('submitBtn');
+
+  agreeCheckbox.addEventListener('change', function() {
+    submitBtn.disabled = !this.checked;
+  });
+
+  // 파일 업로드 관련
+  const fileUploadArea = document.getElementById('fileUploadArea');
+  const fileInput = document.getElementById('fileInput');
+  const fileList = document.getElementById('fileList');
+
+  // 클릭으로 파일 선택
+  fileUploadArea.addEventListener('click', () => {
+    fileInput.click();
+  });
+
+  // 파일 선택 시
+  fileInput.addEventListener('change', (e) => {
+    handleFiles(e.target.files);
+  });
+
+  // 드래그 앤 드롭
+  fileUploadArea.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    fileUploadArea.classList.add('drag-over');
+  });
+
+  fileUploadArea.addEventListener('dragleave', () => {
+    fileUploadArea.classList.remove('drag-over');
+  });
+
+  fileUploadArea.addEventListener('drop', (e) => {
+    e.preventDefault();
+    fileUploadArea.classList.remove('drag-over');
+    handleFiles(e.dataTransfer.files);
+  });
+
+  // 파일 처리
+  function handleFiles(files) {
+    const maxFiles = 5;
+    const maxSize = 10 * 1024 * 1024; // 10MB
+    
+    for (let file of files) {
+      // 파일 개수 체크
+      if (selectedFiles.length >= maxFiles) {
+        alert(`최대 ${maxFiles}개의 파일만 첨부할 수 있습니다.`);
+        break;
+      }
+
+      // 파일 크기 체크
+      if (file.size > maxSize) {
+        alert(`${file.name}은(는) 10MB를 초과합니다.`);
+        continue;
+      }
+
+      // 중복 체크
+      if (selectedFiles.some(f => f.name === file.name)) {
+        alert(`${file.name}은(는) 이미 추가되었습니다.`);
+        continue;
+      }
+
+      selectedFiles.push(file);
+    }
+
+    updateFileList();
+  }
+
+  // 파일 목록 업데이트
+  function updateFileList() {
+    fileList.innerHTML = '';
+    
+    selectedFiles.forEach((file, index) => {
+      const fileItem = document.createElement('div');
+      fileItem.className = 'file-item';
+      
+      const fileInfo = document.createElement('div');
+      fileInfo.className = 'file-info';
+      
+      const icon = document.createElement('span');
+      icon.className = 'file-icon';
+      icon.textContent = getFileIcon(file.name);
+      
+      const fileName = document.createElement('span');
+      fileName.className = 'file-name';
+      fileName.textContent = file.name;
+      
+      const fileSize = document.createElement('span');
+      fileSize.className = 'file-size';
+      fileSize.textContent = formatFileSize(file.size);
+      
+      const removeBtn = document.createElement('button');
+      removeBtn.className = 'file-remove';
+      removeBtn.textContent = '×';
+      removeBtn.type = 'button';
+      removeBtn.onclick = () => removeFile(index);
+      
+      fileInfo.appendChild(icon);
+      fileInfo.appendChild(fileName);
+      fileInfo.appendChild(fileSize);
+      
+      fileItem.appendChild(fileInfo);
+      fileItem.appendChild(removeBtn);
+      
+      fileList.appendChild(fileItem);
+    });
+  }
+
+  // 파일 제거
+  function removeFile(index) {
+    selectedFiles.splice(index, 1);
+    updateFileList();
+  }
+
+  // 파일 아이콘
+  function getFileIcon(filename) {
+    const ext = filename.split('.').pop().toLowerCase();
+    const icons = {
+      'pdf': '📄',
+      'doc': '📝',
+      'docx': '📝',
+      'xls': '📊',
+      'xlsx': '📊',
+      'jpg': '🖼️',
+      'jpeg': '🖼️',
+      'png': '🖼️',
+      'zip': '📦'
+    };
+    return icons[ext] || '📎';
+  }
+
+  // 파일 크기 포맷
+  function formatFileSize(bytes) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+  }
+
+  // 파일을 Base64로 변환
+  function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+  }
+
+  // 폼 제출
+  async function handleSubmit(event) {
+    event.preventDefault();
+    
+    if (!agreeCheckbox.checked) {
+      alert('개인정보 수집에 동의해주세요.');
+      return false;
+    }
+
+    const captcha = document.getElementById('captcha');
+    if (!captcha.checked) {
+      alert('자동등록방지를 체크해주세요.');
+      return false;
+    }
+
+    // URL 확인
+    if (GOOGLE_SCRIPT_URL === 'YOUR_GOOGLE_SCRIPT_URL_HERE') {
+      alert('관리자가 아직 구글 스크립트 URL을 설정하지 않았습니다.');
+      return false;
+    }
+
+    // 버튼 로딩 상태
+    submitBtn.disabled = true;
+    submitBtn.classList.add('loading');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<span class="spinner"></span>전송 중...';
+
+    try {
+      // 폼 데이터 수집
+      const formData = new FormData(event.target);
+      
+      // 파일을 Base64로 변환
+      const filesData = [];
+      for (let file of selectedFiles) {
+        const base64 = await fileToBase64(file);
+        filesData.push({
+          name: file.name,
+          mimeType: file.type,
+          data: base64.split(',')[1] // 'data:...' 부분 제거
+        });
+      }
+
+      const data = {
+        timestamp: new Date().toLocaleString('ko-KR'),
+        name: formData.get('name'),
+        organization: formData.get('organization'),
+        department: formData.get('department') || '-',
+        position: formData.get('position') || '-',
+        phone: `${formData.get('phone1')}-${formData.get('phone2')}-${formData.get('phone3')}`,
+        email: formData.get('email'),
+        title: formData.get('title'),
+        content: formData.get('content'),
+        files: filesData
+      };
+
+      // 구글 Apps Script로 데이터 전송
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      });
+
+      // no-cors 모드에서는 응답을 확인할 수 없으므로 성공으로 간주
+      alert('상담문의가 접수되었습니다.\n빠른 시일 내에 답변드리겠습니다.');
+      
+      // 폼 초기화
+      event.target.reset();
+      agreeCheckbox.checked = false;
+      captcha.checked = false;
+      selectedFiles = [];
+      updateFileList();
+      
+    } catch (error) {
+      console.error('전송 오류:', error);
+      alert('문의 접수 중 오류가 발생했습니다.\n잠시 후 다시 시도해주세요.');
+    } finally {
+      // 버튼 원상복구
+      submitBtn.innerHTML = originalText;
+      submitBtn.classList.remove('loading');
+      submitBtn.disabled = !agreeCheckbox.checked;
+    }
+    
+    return false;
+  }
+
+  // 취소 버튼
+  function resetForm() {
+    if (confirm('작성 중인 내용이 모두 삭제됩니다. 계속하시겠습니까?')) {
+      document.getElementById('inquiryForm').reset();
+      agreeCheckbox.checked = false;
+      submitBtn.disabled = true;
+      selectedFiles = [];
+      updateFileList();
+    }
+  }
+
+  // 전화번호 입력 자동 이동
+  const phoneInputs = document.querySelectorAll('.phone-group input');
+  phoneInputs.forEach((input, index) => {
+    input.addEventListener('input', function() {
+      if (this.value.length === parseInt(this.maxLength) && index < phoneInputs.length - 1) {
+        phoneInputs[index + 1].focus();
+      }
+    });
+
+    // 숫자만 입력
+    input.addEventListener('keypress', function(e) {
+      if (!/[0-9]/.test(e.key)) {
+        e.preventDefault();
+      }
+    });
+  });
+</script>
 </body>
 </html>
