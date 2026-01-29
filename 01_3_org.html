@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="ko">
 <head>
@@ -5,12 +6,223 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>조직도 | 아카이브랩스</title>
   <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* Fade-in on scroll */
+    .fade-in{
+      opacity:0;
+      transform: translateY(14px);
+      transition: opacity .7s ease, transform .7s ease;
+      will-change: opacity, transform;
+    }
+    .fade-in.is-visible{
+      opacity:1;
+      transform:none;
+    }
+
+    /* 조직도 전용 스타일 */
+    .org-chart-container {
+      margin: 40px auto;
+      max-width: 1100px;
+      padding: 0 20px;
+    }
+
+    .org-level {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 35px;
+      position: relative;
+    }
+
+    .org-box {
+      background: linear-gradient(135deg, #1e5a7d 0%, #2d7da8 100%);
+      color: white;
+      padding: 16px 50px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.05em;
+      box-shadow: 0 4px 15px rgba(30, 90, 125, 0.25);
+      position: relative;
+      z-index: 2;
+      transition: all 0.3s ease;
+    }
+
+    .org-box:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(30, 90, 125, 0.35);
+    }
+
+    /* 연결선 */
+    .org-connector {
+      width: 2px;
+      height: 30px;
+      background: linear-gradient(180deg, #2d7da8 0%, #d1d5db 100%);
+      margin: 0 auto;
+    }
+
+    /* 부서 그리드 */
+    .dept-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      width: 100%;
+      max-width: 1000px;
+      margin-top: 20px;
+    }
+
+    .dept-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      border: 1px solid #e5e7eb;
+    }
+
+    .dept-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+      border-color: #2d7da8;
+    }
+
+    .dept-header {
+      background: linear-gradient(135deg, #1e5a7d 0%, #2d7da8 100%);
+      color: white;
+      padding: 16px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      text-align: center;
+      letter-spacing: 0.03em;
+    }
+
+    .dept-body {
+      padding: 16px 12px;
+    }
+
+    .dept-item {
+      background: #f8fafc;
+      padding: 10px 14px;
+      margin-bottom: 8px;
+      border-radius: 6px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #374151;
+      border-left: 3px solid #2d7da8;
+      transition: all 0.2s ease;
+    }
+
+    .dept-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .dept-item:hover {
+      background: #e0f2fe;
+      border-left-color: #1e5a7d;
+      transform: translateX(3px);
+    }
+
+    .dept-sub-note {
+      font-size: 0.75rem;
+      color: #6b7280;
+      margin-top: 2px;
+      font-weight: 500;
+    }
+
+    /* 자문위원회와 경영지원팀 */
+    .advisory-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 600px;
+      margin: 20px auto 40px;
+    }
+
+    .advisory-box {
+      background: white;
+      border: 2px solid #e5e7eb;
+      padding: 14px 20px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.98rem;
+      text-align: center;
+      color: #1f2937;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .advisory-box:hover {
+      border-color: #2d7da8;
+      background: #f0f9ff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(45, 125, 168, 0.15);
+    }
+
+    /* 태블릿 */
+    @media (max-width: 980px) {
+      .dept-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+
+      .org-box {
+        padding: 14px 40px;
+        font-size: 1rem;
+      }
+
+      .advisory-grid {
+        max-width: 500px;
+      }
+    }
+
+    /* 모바일 */
+    @media (max-width: 640px) {
+      .dept-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .advisory-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+      }
+
+      .org-box {
+        padding: 12px 30px;
+        font-size: 0.95rem;
+      }
+
+      .dept-header {
+        font-size: 1rem;
+        padding: 14px;
+      }
+
+      .org-chart-container {
+        margin: 30px auto;
+      }
+    }
+
+    /* 기존 페이지 스타일 */
+    .subpage-head{ margin-bottom:24px; }
+    .subpage-title{
+      margin:10px 0 10px;
+      letter-spacing:-0.03em;
+      line-height:1.2;
+      font-size:1.55rem;
+    }
+    .subpage-line{
+      height:1px;
+      background:var(--line);
+      opacity:.9;
+    }
+  </style>
 </head>
+
 <body>
 <header>
   <div class="header-inner">
     <a class="logo" href="00_index.html" aria-label="아카이브랩스 홈">
-      <!-- 로고 파일을 같은 폴더에 logo.png로 넣으면 자동 표시됩니다 -->
       <img src="logo.png" alt="아카이브랩스 로고" style="height:28px;width:auto" onerror="this.style.display='none';this.parentElement.textContent='ARCHIVE LABS';" />
     </a>
 
@@ -55,151 +267,95 @@
 <section class="hero">
   <div class="hero-content">
     <h1>조직도</h1>
-    <p>아카이브랩스 조직 구성 체계를 한눈에 볼 수 있습니다.</p>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="04_contact.html">상담 문의하기</a>
-      <a class="btn" href="03_news.html">최근 소식 보기</a>
-    </div>
+    <div class="hero-actions"></div>
   </div>
 </section>
 
 <main class="container">
-  
-<div class="card" style="padding:22px">
-  <h2 style="margin:0 0 10px;letter-spacing:-0.03em">조직도</h2>
-  <p style="margin:0 0 16px;color:var(--muted);font-weight:700;line-height:1.8">
-    아래 조직도는 제공해주신 구성(이사회 → 대표이사 → 자문협의회/경영지원팀 및 4개 본부/영역) 기준으로 작성되었습니다.
-  </p>
+  <section class="page-wrap" style="margin-top:-28px">
 
-  <div class="org-wrap" aria-label="아카이브랩스 조직도">
-    <svg class="org-svg" viewBox="0 0 1200 620" role="img">
-      <defs>
-        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-          <feDropShadow dx="0" dy="8" stdDeviation="10" flood-opacity="0.12"/>
-        </filter>
-      </defs>
+      <div class="org-chart-container fade-in">
+        
+        <!-- 이사회 -->
+        <div class="org-level">
+          <div class="org-box">이사회</div>
+        </div>
 
-      <!-- connectors -->
-      <g class="org-lines">
-        <!-- Board -> CEO -->
-        <line x1="600" y1="110" x2="600" y2="160"/>
-        <!-- CEO -> trunk -->
-        <line x1="600" y1="230" x2="600" y2="310"/>
-        <line x1="220" y1="310" x2="600" y2="310"/>
-        <line x1="600" y1="310" x2="980" y2="310"/>
+        <div class="org-connector"></div>
 
-        <!-- trunk to each pillar -->
-        <line x1="220" y1="310" x2="220" y2="350"/>
-        <line x1="460" y1="310" x2="460" y2="350"/>
-        <line x1="700" y1="310" x2="700" y2="350"/>
-        <line x1="940" y1="310" x2="940" y2="350"/>
+        <!-- 대표이사 -->
+        <div class="org-level">
+          <div class="org-box">대표이사</div>
+        </div>
 
-        <!-- CEO to advisory/support -->
-        <line x1="600" y1="195" x2="820" y2="195"/>
-        <line x1="820" y1="195" x2="820" y2="210"/>
-        <line x1="600" y1="215" x2="820" y2="215"/>
-        <line x1="820" y1="215" x2="820" y2="270"/>
-      </g>
+        <!-- 자문위원회 & 경영지원팀 -->
+        <div class="advisory-grid">
+          <div class="advisory-box">자문위원회</div>
+          <div class="advisory-box">경영지원팀</div>
+        </div>
 
-      <!-- top boxes -->
-      <g class="org-box">
-        <rect class="box-top" x="420" y="40" width="360" height="70" rx="14" filter="url(#shadow)"/>
-        <text class="txt-top" x="600" y="84" text-anchor="middle">이사회</text>
+        <div class="org-connector"></div>
 
-        <rect class="box-top" x="420" y="160" width="360" height="70" rx="14" filter="url(#shadow)"/>
-        <text class="txt-top" x="600" y="204" text-anchor="middle">대표이사</text>
-      </g>
+        <!-- 4개 부서 -->
+        <div class="dept-grid">
+          <!-- 컨설팅 -->
+          <div class="dept-card">
+            <div class="dept-header">컨설팅</div>
+            <div class="dept-body">
+              <div class="dept-item">인권·윤리경영팀</div>
+              <div class="dept-item">
+                반부패·청렴팀
+              </div>
+              <div class="dept-item">내부통제팀</div>
+            </div>
+          </div>
 
-      <!-- right-side boxes -->
-      <g class="org-box">
-        <rect class="box-side" x="860" y="155" width="280" height="52" rx="12" filter="url(#shadow)"/>
-        <text class="txt-side" x="1000" y="188" text-anchor="middle">자문협의회</text>
+          <!-- 정책연구 -->
+          <div class="dept-card">
+            <div class="dept-header">정책연구</div>
+            <div class="dept-body">
+              <div class="dept-item">
+                연구1팀
+                <div class="dept-sub-note">(청년, 사회복지, 지역 정책 등)</div>
+              </div>
+              <div class="dept-item">
+                연구2팀
+                <div class="dept-sub-note">(타당성)</div>
+              </div>
+            </div>
+          </div>
 
-        <rect class="box-side" x="860" y="222" width="280" height="52" rx="12" filter="url(#shadow)"/>
-        <text class="txt-side" x="1000" y="255" text-anchor="middle">경영지원팀</text>
-      </g>
+          <!-- 조사 -->
+          <div class="dept-card">
+            <div class="dept-header">조사</div>
+            <div class="dept-body">
+              <div class="dept-item">조사분석팀</div>
+              <div class="dept-item">
+                빅데이터팀
+              </div>
+            </div>
+          </div>
 
-      <!-- pillars -->
-      <!-- Consulting -->
-      <g class="org-box">
-        <rect class="box-head" x="90" y="350" width="260" height="56" rx="12" filter="url(#shadow)"/>
-        <text class="txt-head" x="220" y="386" text-anchor="middle">컨설팅</text>
+          <!-- 교육 -->
+          <div class="dept-card">
+            <div class="dept-header">교육</div>
+            <div class="dept-body">
+              <div class="dept-item">
+                교육1팀
+                <div class="dept-sub-note">(인권, 윤리, 청렴교육)</div>
+              </div>
+              <div class="dept-item">
+                교육2팀
+                <div class="dept-sub-note">(창업)</div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-        <rect class="box-sub" x="90" y="420" width="260" height="50" rx="12"/>
-        <text class="txt-sub" x="220" y="452" text-anchor="middle">인권·윤리경영팀</text>
+      </div>
 
-        <rect class="box-sub" x="90" y="480" width="260" height="50" rx="12"/>
-        <text class="txt-sub" x="220" y="512" text-anchor="middle">반부패·청렴팀</text>
-
-        <rect class="box-sub" x="90" y="540" width="260" height="50" rx="12"/>
-        <text class="txt-sub" x="220" y="572" text-anchor="middle">내부통제팀</text>
-      </g>
-
-      <!-- Policy Research -->
-      <g class="org-box">
-        <rect class="box-head" x="330" y="350" width="260" height="56" rx="12" filter="url(#shadow)"/>
-        <text class="txt-head" x="460" y="386" text-anchor="middle">정책연구</text>
-
-        <rect class="box-sub" x="330" y="420" width="260" height="70" rx="12"/>
-        <text class="txt-sub" x="460" y="448" text-anchor="middle">연구1팀(청년, 사회복지,</text>
-        <text class="txt-sub" x="460" y="472" text-anchor="middle">지역 정책 등)</text>
-
-        <rect class="box-sub" x="330" y="500" width="260" height="50" rx="12"/>
-        <text class="txt-sub" x="460" y="532" text-anchor="middle">연구2팀(타당성)</text>
-      </g>
-
-      <!-- Survey -->
-      <g class="org-box">
-        <rect class="box-head" x="570" y="350" width="260" height="56" rx="12" filter="url(#shadow)"/>
-        <text class="txt-head" x="700" y="386" text-anchor="middle">조사</text>
-
-        <rect class="box-sub" x="570" y="420" width="260" height="50" rx="12"/>
-        <text class="txt-sub" x="700" y="452" text-anchor="middle">조사분석팀</text>
-
-        <rect class="box-sub" x="570" y="480" width="260" height="50" rx="12"/>
-        <text class="txt-sub" x="700" y="512" text-anchor="middle">빅데이터팀</text>
-      </g>
-
-      <!-- Education -->
-      <g class="org-box">
-        <rect class="box-head" x="810" y="350" width="260" height="56" rx="12" filter="url(#shadow)"/>
-        <text class="txt-head" x="940" y="386" text-anchor="middle">교육</text>
-
-        <rect class="box-sub" x="810" y="420" width="260" height="70" rx="12"/>
-        <text class="txt-sub" x="940" y="448" text-anchor="middle">교육1팀(인권, 윤리,</text>
-        <text class="txt-sub" x="940" y="472" text-anchor="middle">청렴교육)</text>
-
-        <rect class="box-sub" x="810" y="500" width="260" height="50" rx="12"/>
-        <text class="txt-sub" x="940" y="532" text-anchor="middle">교육2팀(장학)</text>
-      </g>
-    </svg>
-  </div>
-</div>
-
-<style>
-  .org-wrap{
-    border:1px solid var(--line);
-    border-radius:18px;
-    padding:14px;
-    background:linear-gradient(180deg, rgba(29,78,216,.04), rgba(255,255,255,0));
-    overflow:auto;
-  }
-  .org-svg{ width:100%; min-width:980px; height:auto; display:block; }
-  .org-lines line{
-    stroke: rgba(15,23,42,.25);
-    stroke-width: 2.2;
-    stroke-linecap: round;
-  }
-  .box-top{ fill: var(--brand); }
-  .txt-top{ fill:#fff; font-weight:900; font-size:22px; letter-spacing:-0.02em; }
-  .box-side{ fill: var(--brand-weak); stroke: var(--brand); stroke-width:1.2; }
-  .txt-side{ fill: var(--text); font-weight:900; font-size:18px; letter-spacing:-0.01em; }
-  .box-head{ fill: #0f5f7a; } /* deep teal like the sample */
-  .txt-head{ fill:#fff; font-weight:900; font-size:20px; letter-spacing:-0.02em; }
-  .box-sub{ fill: var(--surface); stroke: var(--line); stroke-width:1.4; }
-  .txt-sub{ fill: var(--text); font-weight:800; font-size:16px; letter-spacing:-0.01em; }
-</style>
-
+    </div>
+  </section>
 </main>
 
 <footer class="site-footer">
@@ -220,22 +376,24 @@
   </div>
 </footer>
 
-<style>
-  .site-footer{ margin-top:24px; padding:18px 0 30px; border-top:1px solid var(--line); background: rgba(255,255,255,.01); }
-  .foot-grid{ display:grid; grid-template-columns: 280px 1fr; gap:18px; align-items:start; }
-  .foot-logo-img{ height:38px; width:auto; display:block; }
-  .foot-logo-fallback{ font-weight:950; font-size:26px; letter-spacing:-0.03em; }
-  .foot-company{ color:var(--muted); font-weight:850; margin-top:8px; }
-  .foot-row{ color:var(--muted); font-weight:750; line-height:1.9; }
-  .foot-row b{ color:#fff; font-weight:950; margin-right:8px; }
-  .foot-copy{ margin-top:10px; color:var(--muted); font-weight:800; }
-  @media (max-width: 980px){ .foot-grid{ grid-template-columns:1fr; } }
-</style>
-
-<script>
-  document.querySelectorAll('.site-footer .yy').forEach(el => el.textContent = new Date().getFullYear());
-</script>
-
 <script src="script.js"></script>
+<script>
+  (function(){
+    var els = document.querySelectorAll('.fade-in');
+    if(!('IntersectionObserver' in window) || !els.length){
+      els.forEach(function(el){ el.classList.add('is-visible'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    els.forEach(function(el){ io.observe(el); });
+  })();
+</script>
 </body>
 </html>
