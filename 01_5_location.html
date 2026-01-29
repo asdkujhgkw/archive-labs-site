@@ -111,7 +111,14 @@
               <br>Tel: (033) 813-8080 | E-mail: alabs2000@naver.com
               <br>영업시간: (월~목) 09:30~17:30 / (금) 09:30~15:00
             </div>
+          </div>
         </div>
+
+        <!-- 카카오맵 지도 영역 추가 -->
+        <div class="map-container">
+          <div id="daumRoughmapContainer1769651246908" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+        </div>
+
       </div>
 
       <style>
@@ -185,6 +192,22 @@
           display:block;
         }
 
+        /* 카카오맵 컨테이너 스타일 */
+        .map-container{
+          margin-top:32px;
+          margin-bottom:18px;
+          width:100%;
+          overflow:hidden;
+          border-radius:12px;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* 카카오맵 반응형 처리 */
+        .root_daum_roughmap{
+          width:100% !important;
+          height:500px !important;
+        }
+
         /* 모바일: 이미지가 highlight 위로 올라오도록 */
         @media (max-width:980px){
           .highlight-media{
@@ -194,6 +217,17 @@
           .highlight-media .message-image{
             order:-1;
             width:100%;
+          }
+          
+          /* 모바일에서 지도 높이 조정 */
+          .root_daum_roughmap{
+            height:400px !important;
+          }
+        }
+
+        @media (max-width:640px){
+          .root_daum_roughmap{
+            height:350px !important;
           }
         }
 
@@ -230,6 +264,20 @@
 </footer>
 
 <script src="script.js"></script>
+
+<!-- 카카오맵 - 지도퍼가기 설치 스크립트 -->
+<script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
+
+<!-- 카카오맵 - 실행 스크립트 -->
+<script charset="UTF-8">
+	new daum.roughmap.Lander({
+		"timestamp" : "1769651246908",
+		"key" : "gtbubmsbw9h",
+		"mapWidth" : "1280",
+		"mapHeight" : "720"
+	}).render();
+</script>
+
 <script>
   (function(){
     var els = document.querySelectorAll('.fade-in');
